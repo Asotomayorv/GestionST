@@ -2,8 +2,12 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "vite",
-        "build": "vite build"
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack",
+        "serve": "lite-server -c node_modules/theme-mix/bs-config.json ./dist",
+        "deploy": "surge --project ./dist --domain stack-v1.0.0.dev.frontendmatter.com",
+        "html-validator-server": "java -cp node_modules/vnu-jar/build/dist/vnu.jar nu.validator.servlet.Main 8888"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",

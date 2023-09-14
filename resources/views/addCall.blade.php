@@ -1,10 +1,10 @@
-@extends('dashboard.navbar')
+@extends('layout.fluidNavbar')
 @section('addCall')
-    <div class="container  page__heading-container">
+    <div class="mdk-header-layout__content page">   
         <div class="page__heading">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">Llamadas</li>
                 </ol>
             </nav>
