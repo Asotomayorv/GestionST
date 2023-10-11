@@ -42,7 +42,7 @@
             </div>
             <div class="col-sm-auto">
                 <div class="form-group">
-                    <a href="{{route('calls.add')}}" class="btn btn-success" style="margin-top: 25px;">Nueva Llamada<i class="material-icons">add</i></a>
+                    <a href="{{route('calls.newCall')}}" class="btn btn-success ml-3">Nueva Llamada <i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
@@ -78,204 +78,41 @@
                 </tr>
             </thead>
             <tbody class="list" id="companies">
+                @foreach($calls as $call)
                 <tr>
                     <td class="text-center">
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
+                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="{{$call -> idCall}}">
+                            <label class="custom-control-label" for="{{$call -> idCall}}"><span class="text-hide">Check</span></label>
                         </div>
                     </td>
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="d-flex align-items-center">
-                                <a href="#">Perfiles Nacionales</a>
+                                <a href="#">{{$call -> idCustomer}}</a>
                             </div>
                         </div>
                     </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Jorge Diaz</td>
-                    <td class="text-center">finanzas@perfilesnacionales.com </td> 
-                    <td class="text-center">7014-1284</td>
-                    <td class="text-center"><strong>Servicio Técnico</strong></td>
+                    <td class="text-center">{{$call -> dateCreation}}</td>
+                    <td class="text-center">{{$call -> customers -> customerName}}</td>
+                    <td class="text-center">{{$call -> customers -> customerEmail1}}</td> 
+                    <td class="text-center">{{$call -> customers -> customerPhone1}}</td>
+                    <td class="text-center"><strong>{{$call -> callSubject}}</strong></td>
                     <td>
-                        <div class="badge badge-danger" style="margin-left: 25px;">PENDIENTE</div>
+                        <div class="badge badge-danger" style="margin-left: 25px;">{{$call -> callStatus}}</div>
                     </td>
                     <div class="dropdown ml-auto">
                         <td>
                             <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
+                                    <a class="dropdown-item" href="{{route('calls.callEdit', ['id' => $call -> idCall])}}">Editar Llamada</a>
+                                    <a class="dropdown-item" href="{{route('calls.deleteCall', ['id' => $call -> idCall])}}">Eliminar Llamada</a>
                                 </div>
                         </td>
                     </div>
                 </tr>
-                <tr>
-                    <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">Libreria el Shaddai</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Noemy Gonzalez</td>
-                    <td class="text-center">noemygz@hormail.com</td> 
-                    <td class="text-center">8741-7177</td>
-                    <td class="text-center"><strong>Suministros</strong></td>
-                    <td>
-                        <div class="badge badge-warning" style="margin-left: 25px;">EN PROCESO</div>
-                    </td>
-                    <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
-                                </div>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">Muebles EGM</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Wagner Guerrero Marín</td>
-                    <td class="text-center">mueblesegm@gmail.com </td> 
-                    <td class="text-center">8768-7751</td>
-                    <td class="text-center"><strong>Ventas</strong></td>
-                    <td>
-                        <div class="badge badge-secondary" style="margin-left: 25px;">COTIZAR</div>
-                    </td>
-                    <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
-                                </div>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">Todo en Frenos y Cluch 2001 S. A.</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Martin Muñoz</td>
-                    <td class="text-center">martincr2007@gmail.com </td> 
-                    <td class="text-center">2285-7878</td>
-                    <td class="text-center"><strong>Ofiequipos</strong></td>
-                    <td>
-                        <div class="badge badge-dark" style="margin-left: 25px;">LLAMAR</div>
-                    </td>
-                    <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
-                                </div>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">Enersys M.V.A. Costa Rica S. A.</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Cindy Ocampo</td>
-                    <td class="text-center">info@enersyscr.com </td> 
-                    <td class="text-center">4111-0000</td>
-                    <td class="text-center"><strong>Asistencia al Cliente</strong></td>
-                    <td>
-                        <div class="badge badge-success" style="margin-left: 25px;">SOLUCIONADO</div>
-                    </td>
-                    <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
-                                </div>
-                        </td>
-                    </div>
-                </tr>
-                <tr>
-                    <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="customCheck1_1">
-                            <label class="custom-control-label" for="customCheck1_1"><span class="text-hide">Check</span></label>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">Alimentos Exclusivos BKCR S.A</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">05/05/2019</td>
-                    <td class="text-center">Ricardo Fuentes</td>
-                    <td class="text-center">bkmetropoli@burgerkingcr.com </td> 
-                    <td class="text-center">8961-9770</td>
-                    <td class="text-center"><strong>Servicio Técnico</strong></td>
-                    <td>
-                        <div class="badge badge-danger" style="margin-left: 25px;">PENDIENTE</div>
-                    </td>
-                    <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="profile.html">Editar Llamada</a>
-                                    <a class="dropdown-item" href="edit-account.html">Eliminar Llamada</a>
-                                </div>
-                        </td>
-                    </div>
-                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

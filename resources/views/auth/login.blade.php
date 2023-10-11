@@ -1,10 +1,15 @@
+@php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+@endphp
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login</title>
+    <title>GestionOperativaST</title>
     <!-- Prevent the demo from appearing in search engines -->
     <meta name="robots" content="noindex">
     <!-- Simplebar -->
@@ -45,62 +50,67 @@
 <body class="layout-login-centered-boxed">
     <div class="layout-login-centered-boxed__form card">
         <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-5 navbar-light">
-            <a href="index.html" class="navbar-brand flex-column mb-2 align-items-center mr-0" style="min-width: 0">
+            <a href="" class="navbar-brand flex-column mb-2 align-items-center mr-0" style="min-width: 0">
                 <!-- <img class="navbar-brand-icon mr-0 mb-2" src="HTML/dist/assets/images/stack-logo-blue.svg" width="25" alt="Stack"> -->
                 <span>Gestión Operativa ST</span>
             </a>
             <p class="m-0">Inicie sesión para acceder al sistema</p>
         </div>
-        <!-- 
+        @if(session('email_sent'))
         <div class="alert alert-soft-success d-flex" role="alert">
             <i class="material-icons mr-3">check_circle</i>
-            <div class="text-body">An email with password reset instructions has been sent to your email address, if it exists on our system.</div>
-        </div> End Facebook Pixel Code 
-        <a href="" class="btn btn-light btn-block">
-            <span class="fab fa-google mr-2"></span>
-            Continue with Google
-        </a> 
-        <div class="page-separator">
-            <div class="page-separator__text">or</div>
+            <div class="text-body">Se cambió la contraseña exitosamente, porfavor inicia sesión.</div>
         </div>
-        -->
-        <form action="{{route('dashboard')}}" novalidate>
+        <div class="page-separator">
+        </div> 
+        @endif
+        @if(session('failedLogin'))
+        <div class="alert alert-soft-danger d-flex" role="alert">
+            <i class="material-icons mr-3">check_circle</i>
+            <div class="text-body">El nombre de usuario o la contraseña son incorrectos.</div>
+        </div>
+        <div class="page-separator">
+        </div> 
+        @endif
+        @if(session('passwordReset'))
+        <div class="alert alert-soft-success d-flex" role="alert">
+            <i class="material-icons mr-3">check_circle</i>
+            <div class="text-body">La contraseña ha sido reestablecida correctamente. Porfavor, inicie sesión.</div>
+        </div>
+        <div class="page-separator">
+        </div> 
+        @endif
+        <form method="POST" action="{{route('auth.login.post')}}">
+            @csrf
             <div class="form-group">
-                <label class="text-label" for="email_2">Correo Electrónico:</label>
+                <label class="text-label" for="systemUser">Usuario:</label>
                 <div class="input-group input-group-merge">
-                    <input id="email_2" type="email" required="" class="form-control form-control-prepended" placeholder="usuario@sistemasdetiempo.com">
+                    <input id="systemUser" type="text" name="systemUser" class="form-control form-control-prepended" placeholder="Usuario" required>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <span class="far fa-envelope"></span>
+                            <span class="far fa-user"></span>
                         </div>
                     </div>
+                    <span class="invalid-feedback" id="systemUser-error">Ingresa un usuario válido.</span>
                 </div>
             </div>
             <div class="form-group">
-                <label class="text-label" for="password_2">Contraseña:</label>
+                <label class="text-label" for="password">Contraseña:</label>
                 <div class="input-group input-group-merge">
-                    <input id="password_2" type="password" required="" class="form-control form-control-prepended" placeholder="Ingrese su contraseña">
+                    <input id="password" type="password" name="password" class="form-control form-control-prepended" placeholder="Contraseña" required>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <span class="fa fa-key"></span>
                         </div>
                     </div>
+                    <span class="invalid-feedback" id="userPassword-error">Ingresa tu contraseña para continuar.</span>
                 </div>
             </div>
             <div class="form-group">
                 <button class="btn btn-block btn-primary" type="submit">Iniciar Sesión</button>
             </div>
-             <!-- 
             <div class="form-group text-center">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" checked="" id="remember">
-                    <label class="custom-control-label" for="remember">Remember me for 30 days</label>
-                </div>
-            </div>
-             -->
-            <div class="form-group text-center">
-                <a href="{{route('password.reset')}}">¿Olvidó su Contraseña?</a> <!--<br>
-                Don't have an account? <a class="text-body text-underline" href="signup-centered-boxed.html">Sign up!</a>-->
+                <a href="{{route('auth.forgotPassword')}}">¿Olvidó su Contraseña?</a> <br>
             </div>
         </form>
     </div>
@@ -123,5 +133,14 @@
     <script src="{{asset('HTML/dist/assets/js/app.js')}}"></script>
     <!-- App Settings (safe to remove) -->
     <script src="{{asset('HTML/dist/assets/js/app-settings.js')}}"></script>
+    <script src="{{asset('HTML/dist/assets/js/userFormValidation.js')}}"></script> 
+    <!-- Mensajes al usuario -->
+    @if (session('password_success'))
+    <script>
+        $(document).ready(function() {
+            toastr.error("{{ session('password_success') }}", "La contraseña ha sido reestablecida exitosamente");
+        });
+    </script>
+    @endif
 </body>
 </html>

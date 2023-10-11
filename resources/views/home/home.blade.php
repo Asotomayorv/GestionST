@@ -17,7 +17,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/teleasistencia.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('calls.list')}}">Gestión de LLamadas</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('calls.callsList')}}">Gestión de LLamadas</a></h4>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/servicio_tecnico.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('technical.services')}}">Servicios y Mantenimiento</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('technical.services')}}">Servicios Técnicos</a></h4>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/clientes.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('client.list')}}">Clientes</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('customers.listCustomers')}}">Clientes</a></h4>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/inventario.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="">Inventario</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('stock.inventory')}}">Bodega</a></h4>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/gestión.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="">Administración</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('admin.listUsers')}}">Administración</a></h4>
                     </div>
                 </div>
             </div>
@@ -94,4 +94,12 @@
         </div>
     </div>
 </div>
+<!-- Mensajes al usuario -->
+@if (session('password_success'))
+    <script>
+        $(document).ready(function() {
+            toastr.success("{{ session('password_success') }}", "¡Cambio Exitoso!");
+        });
+    </script>
+@endif
 @endsection
