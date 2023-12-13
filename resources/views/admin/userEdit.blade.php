@@ -12,14 +12,14 @@
         <h1 class="m-0">Modificar Usuario</h1>
     </div>
 </div>
-<form method="POST" action="{{route('admin.updateUser', ['id' => $user -> idUser])}}">
+<form id="modifyUser" method="POST" action="{{route('admin.updateUser', ['id' => $user -> idUser])}}">
     @csrf
     @method('PUT') <!-- Método PUT para actualizar el usuario -->
     <div class="card card-form">
         <div class="row no-gutters">
             <div class="col-lg-3 card-body">
                 <p><strong class="headings-color">Información del usuario</strong></p>
-                <p class="text-muted">Ingresa los datos del empleado.</p>
+                <p class="text-muted">Modifique los datos y luego haga click en "Actualizar".</p>
             </div>
             <div class="col-lg-9 card-form__body card-body">
                 <div class="row">
@@ -92,9 +92,16 @@
 @if (session('updateError'))
 <script>
     $(document).ready(function() {
-        toastr.success("{{ session('updateError') }}", "Error de Actualización");
+        toastr.warning("{{ session('updateError') }}", "Error de Actualización");
     });
 </script>
+@endif
+@if (session('validationError'))
+    <script>
+        $(document).ready(function() {
+            toastr.warning("{{session('validationError')}}", "Error de validación");
+        });
+    </script>
 @endif
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script src="{{asset('HTML/dist/assets/js/userFormValidation.js')}}"></script> 

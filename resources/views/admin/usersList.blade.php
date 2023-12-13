@@ -17,6 +17,12 @@
         <div class="row">
             <div class="col-sm-auto">
                 <div class="form-group">
+                    <label for="filter_user">Filtrar por Usuario</label>
+                    <input id="filter_user" type="text" class="form-control" placeholder="Nombre de Usuario">
+                </div>
+            </div>
+            <div class="col-sm-auto">
+                <div class="form-group">
                     <label for="filter_category">Filtrar por Departamento</label><br>
                     <select id="inlineFormRole" class="custom-select" style="width: 200px;">
                         <option value="Todos">Todos</option>
@@ -35,9 +41,10 @@
                     <label class="custom-control-label" for="inlineFormStatus">Inactivo</label>
                 </div>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-6">
                 <div class="form-group text-right">
-                    <a href="{{route('admin.newUser')}}" class="btn btn-success" style="margin-top: 25px;">Nuevo Usuario <i class="material-icons">add</i></a>
+                    <a href="{{route('admin.newUser')}}" class="btn btn-success" style="margin-top: 25px;">Nuevo Usuario 
+                        <i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
@@ -55,8 +62,8 @@
                 Cambiar Estado de Usuario <i class="material-icons">autorenew</i></a>
         </form>
     </div> -->
-    <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
-        <div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
+    <div class="table-responsive border-bottom">
+        <div class="table-responsive border-bottom">
             <table id="userTable" class="table mb-0 thead-border-top-0 table-striped table-hover">
                 <thead>
                     <tr>
@@ -89,7 +96,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody class="list" id="staff">
+                <tbody>
                     @foreach($users as $user)
                     <tr>
                         <!-- <td>
@@ -98,15 +105,15 @@
                                 <label class="custom-control-label" for="checkbox_{{$user -> idUser}}"><span class="text-hide">Check</span></label>
                             </div>
                         </td> -->
-                        <td class="text-center"><span class="js-lists-values-employee-name">{{$user -> userName . ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2}}</span></td>
+                        <td class="text-center"><span>{{$user -> userName . ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2}}</span></td>
                         <td class="text-center">{{$user -> systemUser}}</td>
                         <td class="text-center"><span class="badge badge-{{$user -> role -> roleName == 'Administrador' ? 'dark' 
                         : ($user -> role -> roleName == 'Recepcion' ? 'secondary' 
                         : ($user -> role -> roleName == 'Tecnico' ? 'primary'
                         : ($user -> role -> roleName == 'Ventas' ? 'info' : 'warning')))}}">{{strtoupper($user -> role -> roleName)}}</span></td>
                         <td class="text-center"><span class="badge badge-{{$user -> isUserActive ? 'success' : 'danger'}}">{{$user -> isUserActive ? 'ACTIVO' : 'INACTIVO'}}</span></td>
-                        <td class="text-center">{{$user -> dateCreation}}</td>
-                        <td class="text-center">{{$user -> dateLastEdit}}</td>
+                        <td class="text-center">{{$user -> dateCreation->format('d/m/Y')}}</td>
+                        <td class="text-center">{{$user -> dateLastEdit->format('d/m/Y')}}</td>
                         <div class="dropdown ml-auto">
                             <td>
                                 <!-- <button type="button" class="btn btn-sm btn-outline-primary view-user" data-url="{{route('admin.viewUser', ['id' => $user->idUser])}}">
@@ -148,5 +155,5 @@
         });
     </script>
 @endif
-<script src="{{asset('HTML/dist/assets/js/userStatusValidation.js')}}"></script> 
+<script src="{{asset('HTML/dist/assets/js/userFormValidation.js')}}"></script> 
 @endsection

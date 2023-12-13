@@ -12,7 +12,7 @@
         <h1 class="m-0">Registrar Nuevo Usuario</h1>
     </div>
 </div>
-<form method="POST" action="{{route('admin.register')}}">
+<form id="createUser" method="POST" action="{{route('admin.register')}}">
     @csrf
     <div class="card card-form">
         <div class="row no-gutters">
@@ -25,7 +25,7 @@
                     <div class="col">
                         <div class="form-group" style="width: 272px;">
                             <label for="userID">Cédula</label>
-                            <input id="userID" type="text" class="form-control" name="userID" placeholder="0-0000-0000" required>
+                            <input id="userID" type="text" class="form-control" name="userID" placeholder="0-0000-0000">
                             <span class="invalid-feedback" id="userID-error">Ingresa la cédula en un formato válido (e.g., 1-2345-6789)</span>
                         </div>
                     </div>
@@ -34,21 +34,21 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="userName">Nombre</label>
-                            <input id="userName" type="text" class="form-control" name="userName" placeholder="Nombre" required>
+                            <input id="userName" type="text" class="form-control" name="userName" placeholder="Nombre">
                             <span class="invalid-feedback" id="userName-error">Ingresa un Nombre válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="userLastName1">Primer Apellido</label>
-                            <input id="userLastName1" type="text" class="form-control" name="userLastName1" placeholder="Primer Apellido" required>
+                            <input id="userLastName1" type="text" class="form-control" name="userLastName1" placeholder="Primer Apellido">
                             <span class="invalid-feedback" id="userLastName1-error">Ingresa un Apellido válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="userLastName2">Segundo Apellido</label>
-                            <input id="userLastName2" type="text" class="form-control" name="userLastName2" placeholder="Segundo Apellido" required>
+                            <input id="userLastName2" type="text" class="form-control" name="userLastName2" placeholder="Segundo Apellido">
                             <span class="invalid-feedback" id="userLastName2-error">Ingresa un Apellido válido.</span>
                         </div>
                     </div>
@@ -57,14 +57,14 @@
                     <div class="col">
                         <div class="form-group" style="width: 574px;">
                             <label for="userEmail">Correo Electrónico</label>
-                            <input id="userEmail" type="email" class="form-control" name="userEmail" placeholder="usuario@sistemasdetiempo.com" required>
+                            <input id="userEmail" type="email" class="form-control" name="userEmail" placeholder="usuario@sistemasdetiempo.com">
                             <span class="invalid-feedback" id="userEmail-error">Ingresa un correo electrónico válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group" style="width: 272px;">
                             <label for="idRole">Rol</label><br>
-                            <select id="roles" name="idRole" class="custom-select" required>
+                            <select id="roles" name="idRole" class="custom-select">
                                 @foreach ($roles as $role)
                                     <option value="{{$role -> idRole}}">{{$role -> roleName}}</option>
                                 @endforeach
@@ -84,14 +84,14 @@
 @if (session('createError'))
     <script>
         $(document).ready(function() {
-            toastr.error("{{ session('createError') }}", "Error al registrar el usuario");
+            toastr.warning("{{ session('createError') }}", "Error al registrar el usuario");
         });
     </script>
 @endif
 @if (session('validationError'))
     <script>
         $(document).ready(function() {
-            toastr.error("{{ session('validationError') }}", "Error de validación");
+            toastr.warning("{{ session('validationError') }}", "Error de validación");
         });
     </script>
 @endif

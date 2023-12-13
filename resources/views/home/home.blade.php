@@ -27,7 +27,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/rutas.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('route.schedule')}}">Agenda de Rutas</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('routes.listRoutes')}}">Agenda de Rutas</a></h4>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/servicio_tecnico.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('technical.services')}}">Servicios Técnicos</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('home.technicalServices')}}">Servicios Técnicos</a></h4>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/facturacion.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('billing.sales')}}">Facturación</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('home.billingServices')}}">Facturación</a></h4>
                     </div>
                 </div>
             </div>
@@ -67,22 +67,24 @@
                 <img src="{{asset('HTML/dist/assets/images/stories/inventario.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('stock.inventory')}}">Bodega</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('home.stockServices')}}">Bodega</a></h4>
                     </div>
                 </div>
             </div>
         </div>
+        @if(session('userRole') == 'Administrador')
         <div class="col-sm-6 col-md-4">
             <div class="card stories-card-popular">
                 <img src="{{asset('HTML/dist/assets/images/stories/gestión.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
                     <div class="stories-card-popular__title card-body">
-                        <h4 class="card-title m-0"><a href="{{route('admin.listUsers')}}">Administración</a></h4>
+                        <h4 class="card-title m-0"><a href="{{route('home.adminServices')}}">Administración</a></h4>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 col-md-4">
+        @endif
+        <!-- <div class="col-sm-6 col-md-4">
             <div class="card stories-card-popular">
                 <img src="{{asset('HTML/dist/assets/images/stories/reportes.jpg')}}" alt="" class="card-img"> 
                 <div class="stories-card-popular__content">
@@ -91,7 +93,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <!-- Mensajes al usuario -->

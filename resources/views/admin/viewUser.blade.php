@@ -9,7 +9,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Gestión de Usuarios</li>
             </ol>
         </nav>
-        <h1 class="m-0">Detalle del Usuario</h1>
+        <h1 class="m-0">Detalles del Usuario</h1>
     </div>
 </div>
 <div class="card card-group-row__card pricing__card">
@@ -22,37 +22,57 @@
         </div>
         <div class="col-lg-12 card-form__body card-body">
             <div class="row">
-                <div class="col text-center">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <div class="card-header__title text-muted mb-2">Correo Electrónico</div>
-                            <span class="h4 m-0">{{$user -> userEmail}}</span>
+                        <label for="userID">Cédula</label>
+                        <input id="userID" type="text" class="form-control" name="customerID" value="{{$user -> userID}}" readonly>
                     </div>
                 </div>
-                <div class="col text-center">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <div class="card-header__title text-muted mb-2">Cédula</div>
-                            <span class="h4 m-0">{{$user -> userID}}</span>
+                        <label for="userSystem">Usuario</label>
+                        <input id="userSystem" type="text" class="form-control" name="userSystem" value="{{$user -> systemUser}}" readonly>
                     </div>
                 </div>
-                <div class="col text-center">
-                    <div class="form-group">
-                        <div class="card-header__title text-muted mb-2 ">Usuario</div>
-                            <span class="h4 m-0">{{$user -> systemUser}}</span>
+                <div class="col">
+                    <div class="form-group" style="width: 365px">
+                        <label for="userEmail">Correo Electrónico</label>
+                        <input id="userEmail" type="email" class="form-control" name="userEmail" value="{{$user -> userEmail}}" readonly>
                     </div>
                 </div>
-                <div class="col text-center">
+                <div class="col-md-2">
                     <div class="form-group">
-                        <div class="card-header__title text-muted mb-2 ">Fecha de Ingreso</div>
-                            <span class="h4 m-0">{{$user -> dateCreation->format('d-m-Y')}}</span>
+                        <label for="dateCreation">Fecha de Ingreso</label>
+                        <input id="dateCreation" type="text" class="form-control" name="dateCreation" value="{{$user -> dateCreation->format('d-m-Y')}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2 text-center">
+                    <div class="form-group">
+                        <div class="card-header__title text-muted mb-2 ">Estado</div>
+                        <span class="h6 m-0 badge badge-{{$user -> isUserActive ? 'success' : 'danger'}}">{{$user -> isUserActive ? 'ACTIVO' : 'INACTIVO'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-end">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="dateLastEdit">Última Edición</label>
+                        <input id="dateLastEdit" type="text" class="form-control" name="dateLastEdit" value="{{$user -> dateLastEdit->format('d-m-Y')}}" readonly>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="userLastEdit">Usuario</label>
+                        <input id="userLastEdit" type="text" class="form-control" name="userLastEdit" value="{{$user -> userNameLastEdit}}" readonly>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-    <div class="text-right mb-5">
-        <a href="{{route('admin.listUsers')}}" class="btn btn-primary ml-3">Regresar</a>
-    </div>
+<div class="text-right mb-5">
+    <a href="{{route('admin.listUsers')}}" class="btn btn-primary ml-3">Regresar</a>
+    <a href="{{route('admin.editUser', ['id' => $user -> idUser])}}" class="btn btn-success ml-3">
+        <i class="material-icons">edit</i> Editar Usuario</a>
 </div>
-
 @endsection

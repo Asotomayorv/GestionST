@@ -1,14 +1,17 @@
 @extends('layout.fluidNavbar')
 @section('callsList')
-<div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Gestión de Llamadas</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Llamadas Registradas</h1>
+<div class="mdk-header-layout__content page">
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión de Llamadas</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Llamadas Registradas</h1>
+        </div>
+        <a href="{{route('dashboard')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Regresar</a>
     </div>
 </div>
 <div class="card card-form d-flex flex-column flex-sm-row">
@@ -17,49 +20,73 @@
             <div class="col-sm-auto">
                 <div class="form-group">
                     <label for="filter_name">Filtrar por Nombre</label>
-                    <input id="filter_name" type="text" class="form-control" placeholder="Nombre del Cliente">
+                    <input id="filter_name" type="text" class="form-control" placeholder="Nombre del Cliente" style="width: 160px;">
                 </div>
             </div>
             <div class="col-sm-auto">
                 <div class="form-group">
-                    <label for="filter_category">Filtrar por Asunto</label><br>
-                    <select id="filter_category" class="custom-select" style="width: 200px;">
-                        <option value="all">Todos</option>
-                        <option value="all">Servicio Técnico</option>
-                        <option value="all">Suministros</option>
-                        <option value="all">Ventas</option>
-                        <option value="all">Ofiequipos</option>
-                        <option value="all">Asistencia al cliente</option>
-                        <option value="all">Otros</option>
+                    <label for="filter_subject">Filtrar por Asunto</label><br>
+                    <select id="filter_subject" class="custom-select" style="width: 160px;">
+                        <option value="Todos">Todos</option>
+                        <option value="Asistencia al Cliente">Asistencia al Cliente</option>
+                        <option value="Servicio Técnico">Servicio Técnico</option>
+                        <option value="Suministros">Suministros</option>
+                        <option value="Ventas">Ventas</option>
+                        <option value="Ofiequipos">Ofiequipos</option>
+                        <option value="Bit-Office">Bit-Office</option>
+                        <option value="Otros">Otros</option>
                     </select>
                 </div>
             </div>
             <div class="col-sm-auto">
-                <div class="form-group" style="width: 200px;">
-                    <label for="filter_date">Filtrar por Fecha</label>
-                    <input id="filter_date" type="text" class="form-control" placeholder="Select date ..." value="20/08/2023 to 27/08/2023" data-toggle="flatpickr" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                <div class="form-group">
+                    <label for="filter_status">Filtrar por Estado</label><br>
+                    <select id="filter_status" class="custom-select" style="width: 160px;">
+                        <option value="Todos">Todos</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Proceso">En Proceso</option>
+                        <option value="Solucionado">Solucionado</option>
+                        <option value="Cotizar">Cotizar</option>
+                        <option value="Devolver Llamada">Devolver Llamada</option>
+                        <option value="Esperar Llamada">Esperar Llamada</option>
+                        <option value="Asignado a Ruta Visita Técnica">Asignado a Ruta Visita Técnica</option>
+                    </select>
                 </div>
             </div>
             <div class="col-sm-auto">
                 <div class="form-group">
-                    <a href="{{route('calls.newCall')}}" class="btn btn-success ml-3">Nueva Llamada <i class="material-icons">add</i></a>
+                    <label for="dateFilter">Filtrar por Fecha</label><br>
+                    <select id="dateFilter" class="custom-select" style="width: 160px;">
+                        <option value="all">Todos</option>
+                        <option value="today">Hoy</option>
+                        <option value="yesterday">Ayer</option>
+                        <option value="thisWeek">Esta Semana</option>
+                        <option value="thisMonth">Este Mes</option>
+                    </select>
+                </div>
+            </div>
+            <!-- <div class="col-sm-auto">
+                <div class="form-group" style="width: 200px;">
+                    <label for="filter_date">Filtrar por Fecha</label>
+                    <input id="filter_date" type="text" class="form-control" placeholder="Fecha" value="" data-toggle="flatpickr" data-flatpickr-mode="range" data-flatpickr-alt-format="d/m/Y" data-flatpickr-date-format="d/m/Y">
+                </div>
+            </div> -->
+            <div class="col-sm-4">
+                <div class="form-group text-right">
+                    <a href="{{route('calls.newCall')}}" class="btn btn-success ml-3" style="margin-top: 25px;">
+                        Nueva Llamada <i class="material-icons">add</i></a>
                 </div>
             </div>
         </div>
     </div>
-    <button class="btn bg-white border-left border-top border-top-sm-0 rounded-top-0 rounded-top-sm rounded-left-sm-0"><i class="material-icons text-primary icon-20pt">refresh</i></button>
+    <button id="refreshButton" class="btn bg-white border-left border-top border-top-sm-0 rounded-top-0 rounded-top-sm rounded-left-sm-0">
+        <i class="material-icons text-primary icon-20pt">refresh</i></button>
 </div>
 <div class="card">
-    <div class="table-responsive" data-toggle="lists" data-lists-values='["js-lists-values-employee-name"]'>
-        <table class="table mb-0 thead-border-top-0 table-striped">
+    <div class="table-responsive">
+        <table id="callsTable" class="table mb-0 thead-border-top-0 table-striped">
             <thead>
                 <tr>
-                    <th style="width: 5px;">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-toggle-check-all" data-target="#companies" id="customCheckAll">
-                            <label class="custom-control-label" for="customCheckAll"><span class="text-hide">Toggle all</span></label>
-                        </div>
-                    </th>
                     <th class="text-center">
                         <i class="material-icons icon-16pt mr-1">business</i><span>Cliente</span>
                     </th>
@@ -72,43 +99,48 @@
                     <th  class="text-center">
                         <i class="material-icons icon-16pt text-muted mr-1">email</i><span>Correo<span>
                     </th>
-                    <th class="text-center" style="width: 101px;">Teléfono</th>
-                    <th  class="text-center">Asunto</th>
-                    <th  class="text-center">Estado</th>
+                    <th  class="text-center">
+                        <i class="material-icons icon-16pt text-muted mr-1">phone</i><span>Teléfono<span>
+                    </th>
+                    <th  class="text-center">
+                        <i class="material-icons icon-16pt text-muted mr-1">work</i><span>Asunto<span>
+                    </th>
+                    <th  class="text-center">
+                        <i class="material-icons icon-16pt text-muted mr-1">find_replace</i><span>Estado<span>
+                    </th>
+                    <th>
+                        <i class="material-icons icon-16pt mr-1">settings</i><span>Acciones</span>
+                    </th>
                 </tr>
             </thead>
             <tbody class="list" id="companies">
                 @foreach($calls as $call)
                 <tr>
                     <td class="text-center">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input js-check-selected-row" id="{{$call -> idCall}}">
-                            <label class="custom-control-label" for="{{$call -> idCall}}"><span class="text-hide">Check</span></label>
-                        </div>
+                        <a href="{{route('customers.viewCustomer', ['id' => $call -> customers -> idCustomer])}}">{{$call -> customers -> customerFullName}}</a>
                     </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center">
-                                <a href="#">{{$call -> idCustomer}}</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="text-center">{{$call -> dateCreation}}</td>
-                    <td class="text-center">{{$call -> customers -> customerName}}</td>
+                    <td class="text-center" style="width: 74px;">{{$call -> dateCreation}}</td>
+                    <td class="text-center">{{$call -> customers -> customerContact}}</td> 
                     <td class="text-center">{{$call -> customers -> customerEmail1}}</td> 
-                    <td class="text-center">{{$call -> customers -> customerPhone1}}</td>
+                    <td class="text-center" style="width: 86px;">{{$call -> customers -> customerPhone1}}</td>
                     <td class="text-center"><strong>{{$call -> callSubject}}</strong></td>
-                    <td>
-                        <div class="badge badge-danger" style="margin-left: 25px;">{{$call -> callStatus}}</div>
+                    <td class="text-center">
+                        <div class="badge badge-{{$call -> callStatus == 'Pendiente' ? 'danger' 
+                                        : ($call -> callStatus == 'En Proceso' ? 'warning' 
+                                        : ($call -> callStatus == 'Solucionado' ? 'success'
+                                        : ($call -> callStatus == 'Cotizar' ? 'info' 
+                                        : ($call -> callStatus == 'Devolver Llamada' ? 'secondary'
+                                        : ($call -> callStatus == 'Esperar Llamada' ? 'dark'
+                                        : ($call -> callStatus == 'Asignado a Ruta Visita Técnica' ? 'primary' : 'light'))))))}}">{{$call -> callStatus}}</div>
                     </td>
                     <div class="dropdown ml-auto">
-                        <td>
-                            <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="index.html">Ver detalle Llamada</a>
-                                    <a class="dropdown-item" href="{{route('calls.callEdit', ['id' => $call -> idCall])}}">Editar Llamada</a>
-                                    <a class="dropdown-item" href="{{route('calls.deleteCall', ['id' => $call -> idCall])}}">Eliminar Llamada</a>
-                                </div>
+                        <td class="text-center" style="width: 81px;">
+                            <a href="{{route('calls.viewCall', ['id' => $call -> idCall])}}" data-caret="false" class="text-muted" title="Ver LLamada">
+                                <i class="material-icons">visibility</i></a>
+                            <a href="{{route('calls.callEdit', ['id' => $call -> idCall])}}" data-caret="false" class="text-muted" title="Editar LLamada">
+                                <i class="material-icons">edit</i></a>
+                            <a href="{{route('calls.deleteCall', ['id' => $call -> idCall])}}" data-id="{{$call -> idCall}}" data-caret="false" class="text-muted" title="Eliminar Llamada">
+                                <i class="material-icons">delete</i></a>
                         </td>
                     </div>
                 </tr>
@@ -116,8 +148,21 @@
             </tbody>
         </table>
     </div>
-    <div class="card-body text-right">
-        15 <span class="text-muted">de 1,430</span> <a href="#" class="text-muted-light"><i class="material-icons ml-1">arrow_forward</i></a>
-    </div>
 </div>
+<!-- Mensajes al usuario -->
+@if (session('createSuccess'))
+    <script>
+        $(document).ready(function() {
+            toastr.success("{{ session('createSuccess') }}", "¡Registro Exitoso!");
+        });
+    </script>
+@endif
+@if (session('updateSuccess'))
+    <script>
+        $(document).ready(function() {
+            toastr.success("{{ session('updateSuccess') }}", "¡Actualización Exitosa!");
+        });
+    </script>
+@endif
+<script src="{{asset('HTML/dist/assets/js/callsList.js')}}"></script> 
 @endsection

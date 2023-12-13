@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 use App\Models\User;
 use App\Models\ErrorLogs;
+use App\Models\AuditLogs;
 use Exception;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,11 @@ class UserController extends Controller
 {
     use RegistersUsers;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function getRoles()
     {
         //Obtiene todos los roles desde la base de datos
@@ -32,8 +38,16 @@ class UserController extends Controller
     {
         // Obtiene los usuarios del sistema de la base de datos ordenados por fecha de creación de forma descendente
         $users = User::orderBy('dateCreation', 'desc')->get();
-        //Muestra la vista con el listado de usuarios en el sistema
-        return View::make('admin.usersList', ['users' => $users]);
+
+        // Recorre la colección de usuarios y formatea las fechas
+        $formattedUsers = $users->map(function ($user) {
+            $user->dateCreation = Carbon::parse($user->dateCreation);
+            $user->dateLastEdit = Carbon::parse($user->dateLastEdit);
+            return $user;
+        });
+
+        // Muestra la vista con el listado de usuarios en el sistema
+        return View::make('admin.usersList', ['users' => $formattedUsers]);
     }
 
     /*public function refreshUsers()
@@ -65,6 +79,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         // Asegurarse de que la fecha de creación sea un objeto Carbon
         $user->dateCreation = Carbon::parse($user->dateCreation);
+        $user->dateLastEdit = Carbon::parse($user->dateLastEdit);
         //Llama la función getRoles para obtener los roles de la base de datos
         $roles = $this -> getRoles();
         //Mostrar los datos del usuario
@@ -91,7 +106,7 @@ class UserController extends Controller
             'idRole' => ['required', 'integer'],
         ]);
 
-        // Si la validación falla, puedes agregar un mensaje a la sesión
+        // Si la validación falla, se envía un  mensaje a la sesión
         if ($validator->fails()) {
             Session::flash('validationError', 'Por favor, verifica los datos ingresados.');
             return redirect()->back();
@@ -128,6 +143,9 @@ class UserController extends Controller
             Mail::to($data['userEmail'])->send(new \App\Mail\UserCreated($systemUser, $password, $data['userName'],
             $data['userLastName1']));
 
+            AuditLogs::logActivity(session('idUser'), 'NEW_USER', 
+            'Se ha registrado un nuevo usuario: ' . $data['userName'] . ' ' . $data['userLastName1'] . ' ' . $data['userLastName2']);
+
             // Después de crear el usuario exitosamente, genera un mensaje de éxito
             Session::flash('createSuccess', 'Usuario registrado exitosamente');
             return redirect() -> route('admin.listUsers');
@@ -136,8 +154,7 @@ class UserController extends Controller
                 $this -> logError($e -> getMessage(), $e -> getCode(), 'Create_User');
                 // Si falla al guardar el usuario, mostrará un mensaje de error
                 Session::flash('createError', 'Ocurrió un error al registrar el usuario: '. $e->getMessage());
-                return redirect() -> route('admin.listUsers');
-                /*return redirect() -> back();*/
+                return redirect() -> back();
             }
     }
 
@@ -163,9 +180,10 @@ class UserController extends Controller
             'idRole' => ['required', 'integer'],
         ]);
 
-        //Comprueba si la validación falla
-        if ($validator -> fails()){
-            return redirect() -> route('admin.editUser', $id) -> withErrors($validator) -> withInput();
+        // Si la validación falla, se envía un  mensaje a la sesión
+        if ($validator->fails()) {
+            Session::flash('validationError', 'Por favor, verifica los datos ingresados.');
+            return redirect()->back();
         }
 
         try{
@@ -177,8 +195,12 @@ class UserController extends Controller
             $user -> userLastName2 = $request -> input('userLastName2');
             $user -> userEmail = $request -> input('userEmail');
             $user -> idRole = $request -> input('idRole');
+            $user -> userNameLastEdit = Session::get('systemUser');
             $user-> dateLastEdit = Carbon::now();
             $user -> save();
+
+            AuditLogs::logActivity(session('idUser'), 'UPDATE_USER', 
+            'Se han actualizado los datos del usuario: ' . $user -> userName .  ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2);
 
             // Después de modificar el usuario exitosamente, genera un mensaje de éxito
             Session::flash('updateSuccess', 'El usuario ha sido actualizado exitosamente');
@@ -198,8 +220,14 @@ class UserController extends Controller
             $user = User::findorFail($id);
             //Cambia el estado del usuario y lo guarda
             $user -> isUserActive = !$user -> isUserActive;
+            $user -> userNameLastEdit = Session::get('systemUser');
             $user->dateLastEdit = Carbon::now();
             $user -> save();
+            $action = $user->isUserActive ? 'Activación' : 'Desactivación';
+
+            AuditLogs::logActivity(session('idUser'), 'USER_STATUS_CHANGE', 
+            $action . ' del usuario: ' . $user -> userName .  ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2);
+            
             Session::flash('updateSuccess', 'El usuario ha sido actualizado exitosamente');
             return redirect() -> route('admin.listUsers');
 
@@ -211,12 +239,22 @@ class UserController extends Controller
         }
     }
 
+    public function showSystemLogs()
+    {
+        //Obtiene los usuarios del sistema de la base de datos
+        $auditLogs = AuditLogs::all();
+        
+        //Muestra la vista con el listado de usuarios en el sistema
+        return View::make('admin.systemLogs', ['logs' => $auditLogs]);
+    }
+
     private function logError($errorMessage, $errorCode, $errorSource)
     {
         // Verificar si hay errores de validación y registrarlos si los hay
         if ($errorCode === 'VALIDATION_ERROR') {
             foreach ($errorMessage->all() as $error) {
                 ErrorLogs::create([
+                    'idUser' => session('idUser'),
                     'errorMessage' => $error,
                     'errorCode' => 'VALIDATION_ERROR',
                     'errorSource' => $errorSource,
@@ -224,10 +262,20 @@ class UserController extends Controller
             }
         } else {
             ErrorLogs::create([
+                'idUser' => session('idUser'),
                 'errorMessage' => $errorMessage,
                 'errorCode' => $errorCode,
                 'errorSource' => $errorSource,
             ]);
         }
     }
+
+    /*private function logUserAction($userAction, $userEvent)
+    {
+        AuditLogs::create([
+            'idUser' => session('idUser'),
+            'userAction' => $userAction,
+            'userEvent' => $userEvent,
+        ]);
+    }*/
 }

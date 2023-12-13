@@ -44,14 +44,20 @@
 </head>
 <body class="layout-login-centered-boxed">
     <div class="layout-login-centered-boxed__form card">
-        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-5 navbar-light">
+        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-4 navbar-light">
             <a href="" class="navbar-brand flex-column mb-2 align-items-center mr-0" style="min-width: 0">
-                <!-- <img class="navbar-brand-icon mr-0 mb-2" src="HTML/dist/assets/images/stack-logo-blue.svg" width="25" alt="Stack"> -->
+                <img src="{{asset('HTML/dist/assets/images/logos/logo.png')}}" width="150" alt="Sistemas de Tiempo S.A">
                 <span>Gestión Operativa ST</span>
             </a>
             <p class="m-0">Restablecimiento de Contraseña</p>
         </div>
-        <form method="POST" action="{{route('auth.resetPassword')}}">
+        <div class="alert alert-soft-warning d-flex" role="alert">
+            <i class="material-icons mr-3">info</i>
+            <div class="text-body">La nueva contraseña debe tener un mínimo de 8 caracteres entre mayúsculas, minúsculas y números.</div>
+        </div>
+        <div class="page-separator">
+        </div>
+        <form id="resetPassword" method="POST" action="{{route('auth.resetPassword')}}">
             @csrf
             <div class="form-group">
                 <label class="text-label" for="newPassword">Nueva Contraseña :</label>
@@ -74,7 +80,7 @@
                             <span class="fa fa-key"></span>
                         </div>
                     </div>
-                    <span class="invalid-feedback" id="userPassword-error">La confirmación de la contraseña no coincide.</span>
+                    <span class="invalid-feedback" id="newPassword_confirmation-error">La confirmación de la contraseña no coincide.</span>
                 </div>
             </div>
             <input type="hidden" name="token" value="{{$token}}">

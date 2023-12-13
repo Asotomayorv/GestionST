@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ErrorLogs;
+use App\Models\AuditLogs;
 use App\Models\User;
 use App\Mail\ResetPasswordEmail;
 use Carbon\Carbon;
@@ -27,11 +28,11 @@ class AuthController extends Controller
     
     public function index()
     {
-        /*Valida si el usuario ya está logueado
+        //Valida si el usuario ya está logueado
         if (Auth::check()) {
             // Si está logado le mostramos la vista de logados
             return redirect()->route('dashboard');
-	    }*/
+	    }
         return view('auth.login');
     }
 
@@ -70,10 +71,14 @@ class AuthController extends Controller
                 // Guardar nombre, apellido y rol del usuario en variables de sesión
                 session([
                     'idUser' => $user->idUser,
+                    'systemUser' => $user->systemUser,
                     'userName' => $user->userName,
                     'userLastName1' => $user->userLastName1,
                     'userRole' => $user->role->roleName,
                 ]);
+                AuditLogs::logActivity($user->idUser, 'USER_LOGIN', 
+                'El usuario ' . $user -> userName .  ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2 . ' inició sesión en el sistema.');
+                
                 return redirect()->route('dashboard');
             }
             return redirect()->back()->with('failedLogin', true);
@@ -190,8 +195,11 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+        AuditLogs::logActivity(session('idUser'), 'USER_LOGOUT', 
+        'El usuario ' . session('userName') .  ' ' . session('userLastName1') . ' cerró sesión del sistema.');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
         return redirect()->route('auth.login');
     }
 

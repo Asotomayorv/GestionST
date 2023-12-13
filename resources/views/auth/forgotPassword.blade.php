@@ -45,9 +45,9 @@
 </head>
 <body class="layout-login-centered-boxed">
     <div class="layout-login-centered-boxed__form card">
-        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-5 navbar-light">
+        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-4 navbar-light">
             <a href="" class="navbar-brand flex-column mb-2 align-items-center mr-0" style="min-width: 0">
-                <!-- <img class="navbar-brand-icon mr-0 mb-2" src="HTML/dist/assets/images/stack-logo-blue.svg" width="25" alt="Stack"> -->
+                <img src="{{asset('HTML/dist/assets/images/logos/logo.png')}}" width="150" alt="Sistemas de Tiempo S.A">
                 <span>Gestión Operativa ST</span>
             </a>
             <p class="m-0 text-center">Ingresa tu correo electrónico para recuperar tu cuenta.</p>
@@ -65,7 +65,7 @@
             <div class="form-group">
                 <label class="text-label" for="userEmail">Correo:</label>
                 <div class="input-group input-group-merge">
-                    <input id="recoverUserEmail" type="text" name="recoverUserEmail" class="form-control form-control-prepended" placeholder="correo@sistemasdetiempo.com" required>
+                    <input id="recoverUserEmail" type="text" name="recoverUserEmail" class="form-control form-control-prepended" placeholder="correo@sistemasdetiempo.com">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <span class="far fa-envelope"></span>

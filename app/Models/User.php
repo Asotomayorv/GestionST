@@ -41,7 +41,12 @@ class User extends Authenticatable
 
     // Relación con la tabla errorLogs
     public function errorLogs(){
-        return $this->belongsTo(Role::class, 'iderror');
+        return $this->belongsTo(ErrorLogs::class, 'iderror');
+    }
+
+    // Relación con la tabla de logs
+    public function auditLogs(){
+        return $this->belongsTo(AuditLogs::class, 'idLog');
     }
 
     protected $hidden = [

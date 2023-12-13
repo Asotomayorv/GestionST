@@ -11,7 +11,7 @@
         <h1 class="m-0">Cambiar Contraseña</h1>
     </div>
 </div>
-<form method="POST" action="{{route('auth.changePassword')}}">
+<form id="changePassword" method="POST" action="{{route('auth.changePassword')}}">
     @csrf
     <div class="card card-form">
         <div class="row no-gutters">
@@ -44,10 +44,10 @@
     </div>
 </form>
 <!-- Mensajes al usuario -->
-@if (session('password_error'))
+@if (session('passwordValidation_error'))
     <script>
         $(document).ready(function() {
-            toastr.error("{{ session('password_error') }}", "Error al actualizar");
+            toastr.warning("{{session('passwordValidation_error')}}", "Error de validación");
         });
     </script>
 @endif
@@ -55,7 +55,15 @@
 @if (session('validationError'))
     <script>
         $(document).ready(function() {
-            toastr.error("{{ session('validationError') }}", "Error de validación");
+            toastr.warning("{{ session('validationError') }}", "Error de validación");
+        });
+    </script>
+@endif
+<!-- Mensajes al usuario -->
+@if (session('password_error'))
+    <script>
+        $(document).ready(function() {
+            toastr.warning("{{ session('password_error') }}", "Error de actualización");
         });
     </script>
 @endif

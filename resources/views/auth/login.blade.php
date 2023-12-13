@@ -49,9 +49,9 @@ header("Pragma: no-cache");
 </head>
 <body class="layout-login-centered-boxed">
     <div class="layout-login-centered-boxed__form card">
-        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-5 navbar-light">
+        <div class="d-flex flex-column justify-content-center align-items-center mt-2 mb-4 navbar-light">
             <a href="" class="navbar-brand flex-column mb-2 align-items-center mr-0" style="min-width: 0">
-                <!-- <img class="navbar-brand-icon mr-0 mb-2" src="HTML/dist/assets/images/stack-logo-blue.svg" width="25" alt="Stack"> -->
+                <img src="{{asset('HTML/dist/assets/images/logos/logo.png')}}" width="150" alt="Sistemas de Tiempo S.A">
                 <span>Gestión Operativa ST</span>
             </a>
             <p class="m-0">Inicie sesión para acceder al sistema</p>
@@ -66,7 +66,7 @@ header("Pragma: no-cache");
         @endif
         @if(session('failedLogin'))
         <div class="alert alert-soft-danger d-flex" role="alert">
-            <i class="material-icons mr-3">check_circle</i>
+            <i class="material-icons mr-3">error</i>
             <div class="text-body">El nombre de usuario o la contraseña son incorrectos.</div>
         </div>
         <div class="page-separator">
@@ -80,12 +80,12 @@ header("Pragma: no-cache");
         <div class="page-separator">
         </div> 
         @endif
-        <form method="POST" action="{{route('auth.login.post')}}">
+        <form id="loginForm" method="POST" action="{{route('auth.login.post')}}">
             @csrf
             <div class="form-group">
                 <label class="text-label" for="systemUser">Usuario:</label>
                 <div class="input-group input-group-merge">
-                    <input id="systemUser" type="text" name="systemUser" class="form-control form-control-prepended" placeholder="Usuario" required>
+                    <input id="systemUser" type="text" name="systemUser" class="form-control form-control-prepended" placeholder="Usuario">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <span class="far fa-user"></span>
@@ -97,7 +97,7 @@ header("Pragma: no-cache");
             <div class="form-group">
                 <label class="text-label" for="password">Contraseña:</label>
                 <div class="input-group input-group-merge">
-                    <input id="password" type="password" name="password" class="form-control form-control-prepended" placeholder="Contraseña" required>
+                    <input id="password" type="password" name="password" class="form-control form-control-prepended" placeholder="Contraseña">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <span class="fa fa-key"></span>

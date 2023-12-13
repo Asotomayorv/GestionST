@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="https:///cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!-- JQuery Validation Custom -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -58,17 +60,18 @@
     <link type="text/css" href="{{asset('HTML/dist/assets/css/vendor-flatpickr.rtl.css')}}" rel="stylesheet">
     <link type="text/css" href="{{asset('HTML/dist/assets/css/vendor-flatpickr-airbnb.css')}}" rel="stylesheet">
     <link type="text/css" href="{{asset('HTML/dist/assets/css/vendor-flatpickr-airbnb.rtl.css')}}" rel="stylesheet">
+    <!-- DateRangePicker -->
+    <link type="text/css" href="{{asset('HTML/dist/assets/vendor/daterangepicker.css')}}" rel="stylesheet">
     <!-- Vector Maps -->
     <link type="text/css" href="{{asset('HTML/dist/assets/vendor/jqvmap/jqvmap.min.css')}}" rel="stylesheet">
     <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.es.js"></script>
     <link type="text/css" href="{{asset('HTML/dist/assets/vendor/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet">
     <!-- Toastr -->
     <link type="text/css" href="{{asset('HTML/dist/assets/vendor/toastr.min.css')}}" rel="stylesheet">
 </head>
 <body class="layout-fluid layout-sticky-subnav">
     <div class="preloader"></div>
-    <!-- Header Layout -->
-    <div class="mdk-header-layout js-mdk-header-layout">
         <!-- Header -->
         <div id="header" class="mdk-header bg-dark js-mdk-header m-0" data-fixed>
             <div class="mdk-header__content">
@@ -123,59 +126,68 @@
                         <div class="navbar-collapse collapse" id="navbarsExample03">
                             <ul class="nav navbar-nav">
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Gestión de LLamadas</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">phone</i>Gestión de LLamadas</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{route('calls.callsList')}}">Consultar Llamadas</a>
-                                        <a class="dropdown-item" href="{{route('calls.newCall')}}">Registrar Nueva Llamada Entrante</a>
+                                        <a class="dropdown-item" href="{{route('calls.newCall')}}">Registrar Llamada Entrante</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Agenda de Rutas</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">map</i>Agenda de Rutas</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('route.schedule')}}">Consultar Rutas</a>
-                                        <a class="dropdown-item" href="fluid-app-fullcalendar.html">Agendar Nueva Ruta</a>
+                                        <a class="dropdown-item" href="{{route('routes.listRoutes')}}">Consultar Rutas</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Servicios Técnicos</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">build</i>Servicios Técnicos</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('technical.installations')}}">Instalaciones</a>
-                                        <a class="dropdown-item" href="{{route('technical.maintenance')}}">Servicios y Mantenimientos</a>
-                                        <a class="dropdown-item" href="{{route('technical.repairs')}}">Reparaciones</a>
-                                        <a class="dropdown-item" href="{{route('technical.quality')}}">Control de Calidad</a>
+                                        <a class="dropdown-item" href="{{route('installorders.listInstallOrders')}}">Instalaciones</a>
+                                        <a class="dropdown-item" href="{{route('technicalservices.listTechnicalServices')}}">Servicios y Mantenimientos</a>
+                                        <a class="dropdown-item" href="{{route('repairs.listRepairs')}}">Reparaciones</a>
+                                        <a class="dropdown-item" href="{{route('repairs.listProductRepair')}}">Equipos en Reparación</a>
+                                        <a class="dropdown-item" href="{{route('qualityControl.listQA')}}">Control de Calidad</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Facturación</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">payment</i>Facturación</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('billing.sales')}}">Consultar Ventas</a>
-                                        <a class="dropdown-item" href="{{route('billing.guarantees')}}">Garantías</a>
+                                        <a class="dropdown-item" href="{{route('billingOrders.listBillingOrders')}}">Consultar Ventas</a>
+                                        <a class="dropdown-item" href="{{route('productWarranty.productWarrantyList')}}">Garantías</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Bodega</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">list</i>Bodega</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{route('stock.inventory')}}">Consultar Inventario</a>
-                                        <a class="dropdown-item" href="fluid-dashboard.html">Registrar Nuevo Equipo</a>
-                                        <a class="dropdown-item" href="{{route('stock.suppliers')}}">Consultar Proveedores</a>
-                                        <a class="dropdown-item" href="mini-dashboard.html">Registrar Nuevo Proveedor</a>
+                                        <a class="dropdown-item" href="{{route('products.productsList')}}">Consultar Inventario</a>
+                                        <a class="dropdown-item" href="{{route('products.newProduct')}}">Registrar Nuevo Producto</a>
+                                        <a class="dropdown-item" href="{{route('suppliers.listSuppliers')}}">Consultar Proveedores</a>
+                                        <a class="dropdown-item" href="{{route('suppliers.createSupplier')}}">Registrar Nuevo Proveedor</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Clientes</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">group</i>Clientes</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{route('customers.listCustomers')}}">Consultar Clientes</a>
-                                        <a class="dropdown-item" href="{{route('customers.createCustomer')}}">Registrar Cliente</a>
+                                        <a class="dropdown-item" href="{{route('customers.createCustomer')}}">Registrar Nuevo Cliente</a>
                                     </div>
                                 </li>
+                                @if(session('userRole') == 'Administrador')
                                 <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Administración</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="sidebar-menu-icon material-icons">description</i>Administración</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{route('admin.listUsers')}}">Gestión de Usuarios</a>
-                                        <a class="dropdown-item" href="fluid-dashboard.html">Reportes</a>
                                         <a class="dropdown-item" href="{{route('admin.systemLogs')}}">Bitácora del Sistema</a>
+                                        <a class="dropdown-item" href="{{route('reports.graphics')}}">Reportes</a>
                                     </div>
                                 </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -183,28 +195,62 @@
             </div>
             <div class="container-fluid page__container">
                 @yield('home')
-                @yield('updatePassword')
-                @yield('callsList')
-                @yield('callRegister')
-                @yield('callEdit')
-                @yield('calendar')
-                @yield('installations')
                 @yield('technicalServices')
-                @yield('repairs')
-                @yield('maintenance')
-                @yield('quality')
+                @yield('billingServices')
+                @yield('stockServices')
+                @yield('adminServices')
+                @yield('updatePassword')
+                @yield('systemLogs')
+                @yield('usersList')
+                @yield('userRegister')
+                @yield('viewUser')
                 @yield('listCustomers')
+                @yield('viewCustomer')
                 @yield('createCustomer')
                 @yield('editCustomer')
-                @yield('usersList')
-                @yield('viewUser')
-                @yield('userRegister')
-                @yield('systemLogs')
-                @yield('sales')
-                @yield('guarantees')
-                @yield('suppliers')
-                @yield('inventory')
-                @yield('modal')
+                @yield('callsList')
+                @yield('callRegister')
+                @yield('callRegisterId')
+                @yield('viewCall')
+                @yield('callEdit')
+                @yield('listSuppliers')
+                @yield('createSupplier')
+                @yield('editSupplier')
+                @yield('viewSupplier')
+                @yield('productsList')
+                @yield('productRegister')
+                @yield('productEdit')
+                @yield('productView')
+                @yield('listRoutes')
+                @yield('listBillingOrders')
+                @yield('createBillingOrders')
+                @yield('editBillingOrders')
+                @yield('viewBillingOrder')
+                @yield('productWarrantyList')
+                @yield('createProductWarranty')
+                @yield('editProductWarranty')
+                @yield('viewProductWarranty')
+                @yield('listTechnicalServices')
+                @yield('createTechnicalService')
+                @yield('editTechnicalService')
+                @yield('viewTechnicalService')
+                @yield('listInstallOrders')
+                @yield('createInstallOrder')
+                @yield('editInstallOrder')
+                @yield('viewInstallOrder')
+                @yield('createRepair')
+                @yield('listRepairs')
+                @yield('editRepair')
+                @yield('viewRepair')
+                @yield('listProductRepair')
+                @yield('viewProductRepair')
+                @yield('createProductRepair')
+                @yield('editProductRepair')
+                @yield('listQA')
+                @yield('registerQA')
+                @yield('editQA')
+                @yield('viewQA')
+                @yield('graphics')
             </div>
         <!-- // END header-layout__content -->
     </div>
@@ -264,7 +310,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('calls.add')}}">
+                                <a class="sidebar-menu-button" href="{{route('calls.newCall')}}">
                                     <span class="sidebar-menu-text">Registrar Llamada Entrante</span>
                                 </a>
                             </li>
@@ -278,13 +324,8 @@
                         </a>
                         <ul class="sidebar-submenu collapse" id="routes_menu">
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('route.schedule')}}">
+                                <a class="sidebar-menu-button" href="{{route('routes.listRoutes')}}">
                                     <span class="sidebar-menu-text">Consultar Rutas</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="fluid-app-projects.html">
-                                    <span class="sidebar-menu-text">Registrar Ruta</span>
                                 </a>
                             </li>
                         </ul>
@@ -297,22 +338,27 @@
                         </a>
                         <ul class="sidebar-submenu collapse" id="technical_menu">
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('technical.installations')}}">
+                                <a class="sidebar-menu-button" href="{{route('installorders.listInstallOrders')}}">
                                     <span class="sidebar-menu-text">Instalaciones</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('technical.maintenance')}}">
+                                <a class="sidebar-menu-button" href="{{route('technicalservices.listTechnicalServices')}}">
                                     <span class="sidebar-menu-text">Servicios y Mantenimientos</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('technical.repairs')}}">
+                                <a class="sidebar-menu-button" href="{{route('repairs.listRepairs')}}">
                                     <span class="sidebar-menu-text">Reparaciones</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('technical.quality')}}">
+                                <a class="sidebar-menu-button" href="{{route('repairs.listProductRepair')}}">
+                                    <span class="sidebar-menu-text">Equipos en Reparación</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button" href="{{route('qualityControl.listQA')}}">
                                     <span class="sidebar-menu-text">Control de Calidad</span>
                                 </a>
                             </li>
@@ -326,12 +372,12 @@
                         </a>
                         <ul class="sidebar-submenu collapse" id="billing_menu">
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('billing.sales')}}">
+                                <a class="sidebar-menu-button" href="{{route('billingOrders.listBillingOrders')}}">
                                     <span class="sidebar-menu-text">Consultar Ventas</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button" href="{{route('billing.guarantees')}}">
+                                <a class="sidebar-menu-button" href="{{route('productWarranty.productWarrantyList')}}">
                                     <span class="sidebar-menu-text">Garantías</span>
                                 </a>
                             </li>
@@ -345,23 +391,23 @@
                         </a>
                         <ul class="sidebar-submenu collapse" id="stock_menu">
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('stock.inventory')}}">
+                                <a class="sidebar-menu-button" href="{{route('products.productsList')}}">
                                     <span class="sidebar-menu-text">Consultar Inventario</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button" href="fluid-dashboard.html">
-                                    <span class="sidebar-menu-text">Registrar Equipo</span>
+                                <a class="sidebar-menu-button" href="{{route('products.newProduct')}}">
+                                    <span class="sidebar-menu-text">Registrar Nuevo Producto</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="{{route('stock.suppliers')}}">
+                                <a class="sidebar-menu-button" href="{{route('suppliers.listSuppliers')}}">
                                     <span class="sidebar-menu-text">Consultar Proveedores</span>
                                 </a>
                             </li>
                             <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button" href="">
-                                    <span class="sidebar-menu-text">Registrar Proveedor</span>
+                                <a class="sidebar-menu-button" href="{{route('suppliers.createSupplier')}}">
+                                    <span class="sidebar-menu-text">Registrar Nuevo Proveedor</span>
                                 </a>
                             </li>
                         </ul>
@@ -380,7 +426,7 @@
                             </li>
                             <li class="sidebar-menu-item active">
                                 <a class="sidebar-menu-button" href="{{route('customers.createCustomer')}}">
-                                    <span class="sidebar-menu-text">Registrar Cliente</span>
+                                    <span class="sidebar-menu-text">Registrar Nuevo Cliente</span>
                                 </a>
                             </li>
                         </ul>
@@ -397,14 +443,14 @@
                                     <span class="sidebar-menu-text">Gestión de Usuarios</span>
                                 </a>
                             </li>
-                            <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button" href="fluid-dashboard.html">
-                                    <span class="sidebar-menu-text">Reportes</span>
-                                </a>
-                            </li>
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button" href="{{route('admin.systemLogs')}}">
                                     <span class="sidebar-menu-text">Bitácora del Sistema</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item active">
+                                <a class="sidebar-menu-button" href="{{route('reports.graphics')}}">
+                                    <span class="sidebar-menu-text">Reportes</span>
                                 </a>
                             </li>
                         </ul>
@@ -497,7 +543,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de cambiar el estado de este usuario?
+                    ¿Estás seguro de cambiar el estado de este registro?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
@@ -507,25 +553,186 @@
         </div>
     </div>
 
-    <div id="modal-standard" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modal-standard-title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Modal de Confirmación para eliminar elementos -->
+    <div class="modal" id="confirmationDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmationDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-standard-title">Standard modal</h5>
+                    <h5 class="modal-title" id="confirmationDeleteModalLabel">Confirmar Eliminación del Registro</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div> <!-- // END .modal-header -->
+                </div>
                 <div class="modal-body">
-                    <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                </div> <!-- // END .modal-body -->
+                    ¿Estás seguro que desea eliminar este registro?
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> <!-- // END .modal-footer -->
-            </div> <!-- // END .modal-content -->
-        </div> <!-- // END .modal-dialog -->
-    </div> <!-- // END .modal -->
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="confirmDeleteButton">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para buscar y seleccionar clientes -->
+    <div class="modal fade" id="clientSearchModal" tabindex="-1" role="dialog" aria-labelledby="clientSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientSearchModalLabel">Buscar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('clientModalContent')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="confirmSelectButton" type="button" class="btn btn-success" data-dismiss="modal">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para buscar y seleccionar clientes -->
+    <div class="modal fade" id="productSearchModal" tabindex="-1" role="dialog" aria-labelledby="productSearchModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productSearchModalLabel">Buscar Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('productModalContent')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="confirmProductSelectedButton" type="button" class="btn btn-success" data-dismiss="modal">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para buscar y seleccionar clientes -->
+    <div class="modal fade" id="productRepairSearchModal" tabindex="-1" role="dialog" aria-labelledby="productRepairSearchModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productRepairSearchModalLabel">Buscar Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('productRepairModalContent')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="confirmRepairProductSelectedButton" type="button" class="btn btn-success" data-dismiss="modal">Seleccionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para registrar un nuevo cliente -->
+    <div class="modal fade" id="createClientModal" tabindex="-1" role="dialog" aria-labelledby="createClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createClientModalLabel">Registrar Nuevo Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('createClientModal')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="registerClientButton" class="btn btn-success">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <!-- Modal para modificar el cliente seleccionado -->
+    <div class="modal fade" id="modifyClientModal" tabindex="-1" role="dialog" aria-labelledby="modifyClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modifyClientModalLabel">Modificar Datos del Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('modifyClientModal')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="updateClientButton" class="btn btn-success">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+    <!-- Modal para registrar un nuevo comentario a una llamada existente -->
+    <div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createCommentModalLabel">Nuevo Comentario en Llamada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('createCommentModal')
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="registerCommentButton" class="btn btn-success">Registrar Comentario</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <!-- Modal para registrar un nuevo evento en la ruta -->
+    <div class="modal fade" id="createRouteModal" tabindex="-1" role="dialog" aria-labelledby="createRouteModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createRouteModal">Nueva Ruta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('createRouteModal')
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- Modal para registrar un nuevo evento en la ruta -->
+    <div class="modal fade" id="modifyRouteModal" tabindex="-1" role="dialog" aria-labelledby="modifyRouteModal" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modifyRouteModal">Modificar Ruta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @yield('modifyRouteModal')
+                </div>
+            </div>
+        </div>
+    </div> 
 
     <!-- List.js -->
     <script src="{{asset('HTML/dist/assets/vendor/list.min.js')}}"></script>
@@ -533,6 +740,10 @@
     <!-- Flatpickr -->
     <script src="{{asset('HTML/dist/assets/vendor/flatpickr/flatpickr.min.js')}}"></script>
     <script src="{{asset('HTML/dist/assets/js/flatpickr.js')}}"></script>
+    <!-- DateRangePicker -->
+    <script src="{{asset('HTML/dist/assets/vendor/moment.min.js')}}"></script>
+    <script src="{{asset('HTML/dist/assets/vendor/daterangepicker.js')}}"></script>
+    <script src="{{asset('HTML/dist/assets/js/daterangepicker.js')}}"></script>
     <!-- Global Settings -->
     <script src="{{asset('HTML/dist/assets/js/settings.js')}}"></script>
     <!-- Chart.js -->
@@ -552,6 +763,7 @@
     <!-- FullCalendar -->
     <script src="{{asset('HTML/dist/assets/vendor/fullcalendar/fullcalendar.min.js')}}"></script>
     <script src="{{asset('HTML/dist/assets/js/fullcalendar.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/es.js"></script>
      <!-- Toastr -->
      <script src="{{asset('HTML/dist/assets/vendor/toastr.min.js')}}"></script>
      <script src="{{asset('HTML/dist/assets/js/toastr.js')}}"></script>
