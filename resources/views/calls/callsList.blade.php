@@ -11,7 +11,7 @@
             </nav>
             <h1 class="m-0">Llamadas Registradas</h1>
         </div>
-        <a href="{{route('dashboard')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Regresar</a>
+        <a href="{{route('dashboard')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Inicio</a>
     </div>
 </div>
 <div class="card card-form d-flex flex-column flex-sm-row">

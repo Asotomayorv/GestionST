@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class UserController extends Controller
 {
@@ -140,7 +141,7 @@ class UserController extends Controller
             ]);
 
             //Enviar la notificación por correo electrónico al usuario registrado
-            Mail::to($data['userEmail'])->send(new \App\Mail\UserCreated($systemUser, $password, $data['userName'],
+            Mail::to($data['userEmail'])->send(new UserCreated($systemUser, $password, $data['userName'],
             $data['userLastName1']));
 
             AuditLogs::logActivity(session('idUser'), 'NEW_USER', 

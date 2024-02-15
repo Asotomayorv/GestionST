@@ -161,7 +161,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                                        <i class="sidebar-menu-icon material-icons">list</i>Bodega</a>
+                                        <i class="sidebar-menu-icon material-icons">list</i>Inventario</a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{route('products.productsList')}}">Consultar Inventario</a>
                                         <a class="dropdown-item" href="{{route('products.newProduct')}}">Registrar Nuevo Producto</a>
@@ -386,7 +386,7 @@
                     <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" data-toggle="collapse" href="#stock_menu">
                             <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">list</i>
-                            <span class="sidebar-menu-text">Bodega</span>
+                            <span class="sidebar-menu-text">Inventario</span>
                             <span class="ml-auto sidebar-menu-toggle-icon"></span>
                         </a>
                         <ul class="sidebar-submenu collapse" id="stock_menu">

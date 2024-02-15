@@ -1,14 +1,17 @@
 @extends('layout.fluidNavbar')
 @section('callRegister')
 <div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Gestión de LLamadas</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Registrar Llamada Entrante</h1>
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión de LLamadas</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Registrar Llamada Entrante</h1>
+        </div>
+        <a href="{{route('calls.callsList')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Regresar</a>
     </div>
 </div>
 <div class="card card-form">

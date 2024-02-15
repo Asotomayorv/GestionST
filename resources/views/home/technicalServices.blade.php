@@ -65,7 +65,7 @@
                         <i class="material-icons text-white icon-18pt">assignment</i>
                     </span>
                 </div>
-                <a href="{{route('technical.quality')}}" class="text-dark">
+                <a href="{{route('qualityControl.listQA')}}" class="text-dark">
                     <strong>Control de Calidad</strong>
                 </a>
             </div>
@@ -78,7 +78,7 @@
             <img src="{{asset('HTML/dist/assets/images/stories/instalacion.jpg')}}" alt="" class="card-img"> 
             <!-- <div class="stories-card-popular__content">
                 <div class="stories-card-popular__title card-body">
-                    <h4 class="card-title m-0"><a href="{{route('technical.installations')}}">Instalaciones</a></h4>
+                    <h4 class="card-title m-0"><a href="{{route('installorders.listInstallOrders')}}">Instalaciones</a></h4>
                 </div>
             </div> -->
         </div>
@@ -88,7 +88,7 @@
             <img src="{{asset('HTML/dist/assets/images/stories/mantenimiento.jpg')}}" alt="" class="card-img"> 
             <!--  <div class="stories-card-popular__content">
                 <div class="stories-card-popular__title card-body">
-                    <h4 class="card-title m-0"><a href="{{route('technical.maintenance')}}">Servicios y Mantenimientos</a></h4>
+                    <h4 class="card-title m-0"><a href="{{route('technicalservices.listTechnicalServices')}}">Servicios y Mantenimientos</a></h4>
                 </div>
             </div> -->
         </div>
@@ -98,7 +98,7 @@
             <img src="{{asset('HTML/dist/assets/images/stories/reparacion.jpg')}}" alt="" class="card-img"> 
             <!--  <div class="stories-card-popular__content">
                 <div class="stories-card-popular__title card-body">
-                    <h4 class="card-title m-0"><a href="{{route('technical.repairs')}}">Reparaciones</a></h4>
+                    <h4 class="card-title m-0"><a href="{{route('repairs.listRepairs')}}">Reparaciones</a></h4>
                 </div>
             </div> -->
         </div>
@@ -108,7 +108,7 @@
             <img src="{{asset('HTML/dist/assets/images/stories/calidad.jpeg')}}" alt="" class="card-img"> 
             <!--  <div class="stories-card-popular__content">
                 <div class="stories-card-popular__title card-body">
-                    <h4 class="card-title m-0"><a href="{{route('routes.listRoutes')}}">Control de Calidad</a></h4>
+                    <h4 class="card-title m-0"><a href="{{route('qualityControl.listQA')}}">Control de Calidad</a></h4>
                 </div>
             </div> -->
         </div>

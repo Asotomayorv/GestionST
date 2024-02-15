@@ -58,36 +58,54 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-            //Valida del lado del servidor el usuario y la contraseña
+            // Valida del lado del servidor el usuario y la contraseña
             $this->validate($request, [
                 'systemUser' => 'required',
                 'password' => 'required',
             ]);
-            //Obtiene el usuario de la BD
+
+            // Obtiene el usuario de la BD
             $user = User::where('systemUser', $request->systemUser)->first();
-            //Realiza la autenticación
-            if ($user && password_verify($request->password, $user->userPassword_hash)) {
-                Auth::login($user);
-                // Guardar nombre, apellido y rol del usuario en variables de sesión
-                session([
-                    'idUser' => $user->idUser,
-                    'systemUser' => $user->systemUser,
-                    'userName' => $user->userName,
-                    'userLastName1' => $user->userLastName1,
-                    'userRole' => $user->role->roleName,
-                ]);
-                AuditLogs::logActivity($user->idUser, 'USER_LOGIN', 
-                'El usuario ' . $user -> userName .  ' ' . $user -> userLastName1 . ' ' . $user -> userLastName2 . ' inició sesión en el sistema.');
-                
-                return redirect()->route('dashboard');
+
+            // Realiza la verificación adicional del estado del usuario
+            if ($user) {
+                if ($user->isUserActive) {
+                    // Usuario activo, verifica la contraseña
+                    if (password_verify($request->password, $user->userPassword_hash)) {
+                        // Contraseña correcta, inicia sesión
+                        Auth::login($user);
+
+                        // Guarda nombre, apellido y rol del usuario en variables de sesión
+                        session([
+                            'idUser' => $user->idUser,
+                            'systemUser' => $user->systemUser,
+                            'userName' => $user->userName,
+                            'userLastName1' => $user->userLastName1,
+                            'userRole' => $user->role->roleName,
+                        ]);
+
+                        AuditLogs::logActivity($user->idUser, 'USER_LOGIN', 
+                            'El usuario ' . $user->userName .  ' ' . $user->userLastName1 . ' ' . $user->userLastName2 . ' inició sesión en el sistema.');
+
+                        return redirect()->route('dashboard');
+                    } else {
+                        // Contraseña incorrecta
+                        return redirect()->back()->with('failedLogin', true);
+                    }
+                } else {
+                    // Usuario inactivo
+                    return redirect()->back()->with('inactiveUser', true);
+                }
             }
+            // Credenciales incorrectas
             return redirect()->back()->with('failedLogin', true);
         } catch (Exception $e) {
-            $this -> logError($e -> getMessage(), $e -> getCode(), 'Auth_User');
+            $this->logError($e->getMessage(), $e->getCode(), 'Auth_User');
             // Manejar la excepción, puedes registrarla o redirigir a una página de error
             return redirect()->back()->with('failedLogin', true);
         }
     }
+
 
     public function resetAccount(Request $request)
     {

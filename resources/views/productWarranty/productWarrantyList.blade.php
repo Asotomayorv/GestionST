@@ -1,15 +1,18 @@
 @extends('layout.fluidNavbar')
 @section('productWarrantyList')
 <div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item" aria-current="page">Servicios Técnicos</li>
-                <li class="breadcrumb-item active" aria-current="page">Gestión de Garantías</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Garantías de Equipos</h1>
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item" aria-current="page">Servicios Técnicos</li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión de Garantías</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Garantías de Equipos</h1>
+        </div>
+        <a href="{{route('dashboard')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Inicio</a>
     </div>
 </div>
 <div class="card card-form d-flex flex-column flex-sm-row">

@@ -19,6 +19,8 @@
     <!-- Font Awesome FREE Icons -->
     <link type="text/css" href="{{asset('HTML/dist/assets/css/vendor-fontawesome-free.css')}}" rel="stylesheet">
     <link type="text/css" href="{{asset('HTML/dist/assets/css/vendor-fontawesome-free.rtl.css')}}" rel="stylesheet">
+    <!-- Toastr -->
+    <link type="text/css" href="{{asset('HTML/dist/assets/vendor/toastr.min.css')}}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133433427-1"></script>
     <script>
@@ -97,11 +99,14 @@
     <script src="{{asset('HTML/dist/assets/js/dropdown.js')}}"></script>
     <script src="{{asset('HTML/dist/assets/js/sidebar-mini.js')}}"></script>
     <script src="{{asset('HTML/dist/assets/js/app.js')}}"></script>
+    <!-- Toastr -->
+    <script src="{{asset('HTML/dist/assets/vendor/toastr.min.js')}}"></script>
+    <script src="{{asset('HTML/dist/assets/js/toastr.js')}}"></script>
     <!-- App Settings (safe to remove) -->
     <script src="{{asset('HTML/dist/assets/js/app-settings.js')}}"></script>
     <script>
         var checkUserEmailUrl = "{{route('auth.checkUserEmail')}}";
     </script>
-    <script src="{{asset('HTML/dist/assets/js/userFormValidation.js')}}"></script> 
+    <script src="{{asset('HTML/dist/assets/js/userEmailValidation.js')}}"></script> 
 </body>
 </html>

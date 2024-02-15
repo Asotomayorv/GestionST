@@ -1,15 +1,18 @@
 @extends('layout.fluidNavbar')
 @section('viewBillingOrder')
 <div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item" aria-current="page">Facturación</li>
-                <li class="breadcrumb-item active" aria-current="page">Gestión de Ventas y Cotizaciones</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Detalle de Venta/Contización</h1>
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item" aria-current="page">Facturación</li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión de Ventas y Cotizaciones</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Detalle de Venta/Contización</h1>
+        </div>
+        <a href="{{route('billingOrders.listBillingOrders')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Regresar</a>
     </div>
 </div>
 <div class="card card-group-row__card pricing__card">
@@ -185,8 +188,11 @@
                 <div class="col">
                     <div class="text-right">
                         <a href="{{route('billingOrders.listBillingOrders')}}" class="btn btn-primary ml-3">Regresar</a>
-                         <button class="btn btn-primary ml-3" onclick="printInvoice()">Vista Previa</button>
-                        <a href="{{route('billingOrders.editBillingOrders', ['id' => $billingOrders -> idbillingOrder])}}" class="btn btn-success ml-3">
+                         <!-- <button class="btn btn-primary ml-3" onclick="printInvoice()">Vista Previa</button> -->
+                        <a href="{{route('billingOrders.pdfBillingOrder', ['id' => $billingOrders -> idbillingOrder])}}" 
+                            class="btn btn-primary ml-3" target="_blank">Vista Previa</a>
+                        <a href="{{route('billingOrders.editBillingOrders', ['id' => $billingOrders -> idbillingOrder])}}" 
+                            class="btn btn-success ml-3">
                             <i class="material-icons">edit</i> Editar Boleta de Facturación</a>
                     </div>
                 </div>

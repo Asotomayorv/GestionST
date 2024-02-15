@@ -17,6 +17,7 @@ use App\Models\ErrorLogs;
 use App\Models\AuditLogs;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class billingOrdersController extends Controller
 {
@@ -37,7 +38,8 @@ class billingOrdersController extends Controller
     public function getSeller()
     {
         //Obtiene todos los vendedores desde la base de datos
-        $seller = DB::table('users') ->join('roles', 'users.idRole', '=', 'roles.idRole')    ->where('roles.roleName', 'Ventas')    ->get();return $seller;
+        $seller = DB::table('users') ->join('roles', 'users.idRole', '=', 'roles.idRole')    ->where('roles.roleName', 'Ventas')    
+        ->get();return $seller;
     }
 
     public function showRegistrationForm()
@@ -252,37 +254,6 @@ class billingOrdersController extends Controller
         }
     }
 
-    /*public function deleteBillingOrder($idbillingOrder) {
-        try {
-            // Encuentra el registro de la llamada por su ID
-            $billingOrder = billingOrders::find($idbillingOrder);
-            $customerName = $billingOrder -> customers -> customerFullName;
-            if ($billingOrder) {
-                // Elimina el registro de la llamada
-                // Obtén todos los comentarios asociados a la llamada
-            $products = ProductSale::where('idbillingOrder', $idbillingOrder)->get();
-            // Elimina los comentarios
-            foreach ($products as $product) {
-                $product->delete();
-            }
-            // Elimina la llamada
-            $billingOrder->delete();
-            AuditLogs::logActivity(session('idUser'), 'DELETE_BILLING_ORDER', 
-            'Se ha eliminado el registro la boleta de facturación para el cliente:' . ' ' . $customerName);
-
-            // Devuelve una respuesta exitosa
-            return response()->json(['message' => 'La boleta de facturación se eliminó existosamente'], 200);
-            }
-            else {
-                // Devuelve una respuesta de error si no se encuentra el registro de la llamada
-                return response()->json(['message' => 'No se encontró la boleta de facturación'], 404);
-            }
-        } catch (Exception $e) {
-            // Devuelve una respuesta de error si ocurre una excepción
-            return response()->json(['message' => 'Ocurrió un error al intentar eliminar el registro de la boleta: ' . $e->getMessage()], 500);
-        }
-    }*/
-
     public function deleteBillingOrder($idbillingOrder) {
         try {
             // Encuentra el registro de la llamada por su ID
@@ -331,6 +302,15 @@ class billingOrdersController extends Controller
         //Mostrar el formulario de edición con los datos del usuario
         return view('billingOrders.viewBillingOrder', ['billingOrders' => $billingOrders, 'sellers' => $sellers,
         'selectedProducts' => $selectedProducts->toArray()]);
+    }
+
+    public function printBillingOrder($id)
+    {
+        //Obtener al usuario a modificar
+        $billingOrders = billingOrders::findOrFail($id);
+        $selectedProducts = ProductSale::where('idbillingOrder', $billingOrders -> idbillingOrder)->with('products.brands', 'products.models')->get();
+        $pdf = Pdf::loadView('billingOrders.pdfBillingOrder', compact('billingOrders', 'selectedProducts'));
+        return $pdf->stream();
     }
     
     private function logError($errorMessage, $errorCode, $errorSource)

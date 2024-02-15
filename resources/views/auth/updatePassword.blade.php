@@ -1,14 +1,17 @@
 @extends('layout.fluidNavbar')
 @section('updatePassword')
 <div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Cuenta de Usuario</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Cambiar Contraseña</h1>
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cuenta de Usuario</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Cambiar Contraseña</h1>
+        </div>
+        <a href="{{route('dashboard')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Inicio</a>
     </div>
 </div>
 <form id="changePassword" method="POST" action="{{route('auth.changePassword')}}">

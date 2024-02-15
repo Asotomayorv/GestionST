@@ -237,6 +237,8 @@
                     <div class="text-right">
                         <a href="{{route('installorders.listInstallOrders')}}" class="btn btn-primary ml-3">Regresar</a>
                          <!-- <button class="btn btn-primary ml-3" onclick="printInvoice()">Vista Previa</button> -->
+                         <a href="{{route('installorders.pdfInstallOrder', ['id' => $install -> idinstallation])}}" 
+                            class="btn btn-primary ml-3" target="_blank">Vista Previa</a>
                         <a href="{{route('installorders.editInstallOrder', ['id' => $install -> idinstallation])}}" class="btn btn-success ml-3">
                             <i class="material-icons">edit</i> Editar Boleta de Instalación</a>
                     </div>

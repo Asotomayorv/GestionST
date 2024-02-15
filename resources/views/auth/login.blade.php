@@ -72,6 +72,14 @@ header("Pragma: no-cache");
         <div class="page-separator">
         </div> 
         @endif
+        @if(session('inactiveUser'))
+        <div class="alert alert-soft-danger d-flex" role="alert">
+            <i class="material-icons mr-3">error</i>
+            <div class="text-body">El usuario está inactivo, contacta al administrador del sistema.</div>
+        </div>
+        <div class="page-separator">
+        </div> 
+        @endif
         @if(session('passwordReset'))
         <div class="alert alert-soft-success d-flex" role="alert">
             <i class="material-icons mr-3">check_circle</i>

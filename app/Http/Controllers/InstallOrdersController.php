@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Exception;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InstallOrdersController extends Controller
 {
@@ -246,6 +247,15 @@ class InstallOrdersController extends Controller
             // Devuelve una respuesta de error si ocurre una excepción
             return response()->json(['message' => 'Ocurrió un error al intentar eliminar el registro de la boleta: ' . $e->getMessage()], 500);
         }
+    }
+
+    public function printInstallOrder($id)
+    {
+       //Obtener al usuario a modificar
+        $installOrder = InstallOrders::findOrFail($id);
+        $selectedProducts = ProductInstall::where('idinstallation', $installOrder -> idinstallation)->with('products.brands', 'products.models')->get();
+        $pdf = Pdf::loadView('installorders.pdfInstallOrder', compact('installOrder', 'selectedProducts'));
+        return $pdf->stream();
     }
 
     private function logError($errorMessage, $errorCode, $errorSource)
