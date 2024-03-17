@@ -135,7 +135,7 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label for="productCostColones">Costo ₡*</label><br>
+                        <label for="productCostColones">Costo ₡</label><br>
                         <input id="productCostColones"  name="productCostColones" type="text" class="form-control" readonly>
                     </div>
                 </div>
@@ -157,13 +157,13 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="productSaleColones">Venta ₡*</label><br>
+                        <label for="productSaleColones">Venta ₡</label><br>
                         <input id="productSaleColones"  name="productSaleColones" type="text" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="productProfitPercentage">Utilidad %*</label><br>
+                        <label for="productProfitPercentage">Utilidad %</label><br>
                         <input id="productProfitPercentage"  name="productProfitPercentage" type="text" class="form-control" readonly>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="productLocation2">Localización 2*</label><br>
+                        <label for="productLocation2">Localización 2</label><br>
                         <input id="productLocation2" name="productLocation2" type="text" class="form-control" placeholder="Localización 2">
                     </div>
                 </div>

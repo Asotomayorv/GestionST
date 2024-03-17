@@ -38,17 +38,17 @@ $(document).ready(function() {
         }
     });
 
-    //Filtro por Asunto
-    $('#filter_seller').on('change', function() {
+    //Filtro por Estado
+    $('#filter_status').on('change', function() {
         var selectedSubject = $(this).val();
         // Verificar si se seleccionó "Todos"
         if (selectedSubject === 'Todos') {
             // Limpiar el filtro
-            table.column(3).search('').draw();
+            table.column(6).search('').draw();
         } else {
             // Filtra la tabla basándose en el estado seleccionado
             // El número '6' representa la columna del estado
-            table.column(3).search(selectedSubject).draw();
+            table.column(6).search(selectedSubject).draw();
         }
     });
 

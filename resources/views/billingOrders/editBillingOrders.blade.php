@@ -251,7 +251,7 @@
             @foreach($products as $product)
             <tr data-product-id="{{$product -> idproduct}}">
                 <td class="text-center">{{$product -> productCode}}</td>
-                <td class="text-center">{{$product -> productName}}</td>
+                <td class="text-center" style="width: 111px;">{{$product -> productName}}</td>
                 <td class="text-center">{{$product -> brands -> brandName}}</td>
                 <td class="text-center">{{$product -> models -> modelName}}</td>
                 <td class="text-center">{{$product -> productSeries}}</td>
@@ -278,7 +278,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomertypeID">Tipo de Cedula*</label>
-                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select" required>
+                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select">
                                 <option value="1">Jurídica</option>
                                 <option value="2">Física</option>
                             </select>
@@ -306,14 +306,14 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerFullName">Nombre/Razón Social*</label>
-                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo" required>
+                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo" >
                             <span class="invalid-feedback" id="modifyCustomerFullName-error">Ingresa un nombre válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerContact">Contacto*</label>
-                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto" required>
+                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto" >
                             <span class="invalid-feedback" id="modifyCustomerContact-error">Ingresa un contacto válido.</span>
                         </div>
                     </div>
@@ -322,7 +322,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerEmail1">Correo Electrónico 1*</label>
-                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com" required>
+                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com" >
                             <span class="invalid-feedback" id="modifyCustomerEmail1-error">Ingresa un correo electrónico válido.</span>
                         </div>
                     </div>
@@ -336,7 +336,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="modifyCustomerPhone1">Telefono 1*</label>
-                            <input id="modifyCustomerPhone1" type="text" class="form-control" name="modifyCustomerPhone1" placeholder="0000-0000" required>
+                            <input id="modifyCustomerPhone1" type="text" class="form-control" name="modifyCustomerPhone1" placeholder="0000-0000" >
                             <span class="invalid-feedback" id="modifyCustomerPhone1-error">Ingresa un teléfono en formato válido (e.g., 8888-8888).</span>
                         </div>
                     </div>

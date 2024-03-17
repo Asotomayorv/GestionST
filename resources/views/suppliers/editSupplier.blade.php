@@ -35,7 +35,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="supplierPhone1">Telefono 1</label>
+                            <label for="supplierPhone1">Telefono 1*</label>
                             <input id="supplierPhone1" type="text" class="form-control" name="supplierPhone1" placeholder="0000-0000" value="{{$supplier -> supplierPhone1}}">
                             <span class="invalid-feedback" id="supplierPhone1-error">Ingresa un teléfono en formato válido (e.g., 8888-8888).</span>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="supplierEmail1">Correo Electrónico 1</label>
+                            <label for="supplierEmail1">Correo Electrónico 1*</label>
                             <input id="supplierEmail1" type="email" class="form-control" name="supplierEmail1" placeholder="proveedor@correo.com" value="{{$supplier -> supplierEmail1}}">
                             <span class="invalid-feedback" id="supplierEmail1-error">Ingresa un correo electrónico válido.</span>
                         </div>
@@ -83,7 +83,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="supplierAddress">Dirección</label>
+                            <label for="supplierAddress">Dirección*</label>
                             <textarea id="supplierAddress" type="text" class="form-control" name="supplierAddress" placeholder="Direccion del proveedor..">{{$supplier -> supplierAddress}}</textarea>
                             <span class="invalid-feedback" id="supplierAddress-error">Ingresa una direccion válida.</span>
                         </div>

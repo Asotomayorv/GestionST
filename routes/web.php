@@ -141,11 +141,11 @@ Route::prefix('technicalservices')->name('technicalservices.')->group(function (
     Route::get('deleteTechnicalService/{id}', [TechServiceController::class, 'deleteTechService'])->name('deleteTechnicalService'); //Elimina el registro de orden de servicio técnico seleccionado
 });
 
-//Rtuas para el módulo de instalaciones
+//Rutas para el módulo de instalaciones
 Route::prefix('installorders')->name('installorders.')->group(function () {
     Route::get('listInstallOrders', [InstallOrdersController::class, 'listInstallOrders'])->name('listInstallOrders'); //Muestra un listado de las órdenes de instalación
     Route::get('createInstallOrder', [InstallOrdersController::class, 'showRegistrationForm'])->name('createInstallOrder'); //Muestra el formulario de registro para una nueva orden de instalación
-    Route::get('getProducts/{id}', [InstallOrdersController::class, 'getProducts'])->name('getInstallProducts'); //Obtiene los productos con sin instalaciones asociadas
+    Route::get('getProducts/{id}', [InstallOrdersController::class, 'getProducts'])->name('getInstallProducts'); //Obtiene los productos con instalaciones asociadas
     Route::get('viewInstallOrder/{id}', [InstallOrdersController::class, 'showInstallOrders'])->name('viewInstallOrder'); //Muestra el detalle de la órden de instalación seleccionada
     Route::post('register', [InstallOrdersController::class, 'create'])->name('register'); //Ingresa un nuevo registro de orden de instalación en la BD
     Route::get('editInstallOrder/{id}', [InstallOrdersController::class, 'showEditForm'])->name('editInstallOrder'); //Muestra el formulario de edición para la orden de instalación seleccionada
@@ -154,56 +154,64 @@ Route::prefix('installorders')->name('installorders.')->group(function () {
     Route::get('printInstallOrder/{id}', [InstallOrdersController ::class, 'printInstallOrder'])->name('pdfInstallOrder'); //Genra la pre-visualización del detalle de la orden de instalación seleccionada
 });
 
+//Rutas para el módulo de reparaciones
 Route::prefix('repairs')->name('repairs.')->group(function () {
     Route::get('listRepairs', [RepairController::class, 'showRepairsList'])->name('listRepairs');
-    Route::get('listProductRepair', [RepairController::class, 'showProductRepairsList'])->name('listProductRepair');
-    Route::get('getProducts/{id}', [RepairController::class, 'getProducts'])->name('getRepairProducts');
-    Route::get('getProductsToRepair/{id}', [RepairController::class, 'getProductsToRepair'])->name('getProductsToRepair');
-    Route::get('viewRepair/{id}', [RepairController::class, 'showRepairDetails'])->name('viewRepair');
-    Route::get('viewProductRepair/{id}', [RepairController::class, 'showProductRepairDetails'])->name('viewProductRepair');
-    Route::get('createRepair', [RepairController::class, 'showCreateForm'])->name('createRepair');
-    Route::post('create', [RepairController::class, 'create'])->name('registerRepair');
-    Route::get('createProductRepair', [RepairController::class, 'showCreateProductRepairForm'])->name('createProductRepair');
-    Route::post('registerProductRepair', [RepairController::class, 'createProductRepair'])->name('registerProductRepair');
-    Route::get('editRepair/{id}', [RepairController::class, 'showEditForm'])->name('editRepair');
-    Route::put('updateRepair/{id}', [RepairController::class, 'updateRepair'])->name('updateRepair');
-    Route::get('editProductRepair/{id}', [RepairController::class, 'showEditProductRepairForm'])->name('editProductRepair');
-    Route::put('updateProductRepair/{id}', [RepairController::class, 'updateProductRepair'])->name('updateProductRepair');
-    Route::get('deleteRepairOrder/{id}', [RepairController::class, 'deleteRepairOrder'])->name('deleteRepairOrder');
-    Route::get('deleteProductRepairOrder/{id}', [RepairController::class, 'deleteProductRepairOrder'])->name('deleteProductRepairOrder');
+    Route::get('listProductRepair', [RepairController::class, 'showProductRepairsList'])->name('listProductRepair'); //Muestra un listado de las reparaciones
+    Route::get('getProducts/{id}', [RepairController::class, 'getProducts'])->name('getRepairProducts'); //Obtiene los productos por cliente 
+    Route::get('getProductsToRepair/{id}', [RepairController::class, 'getProductsToRepair'])->name('getProductsToRepair'); //Obtiene los productos por reparar
+    Route::get('viewRepair/{id}', [RepairController::class, 'showRepairDetails'])->name('viewRepair'); // Muestra el detalle de la reparación seleccionada
+    Route::get('viewProductRepair/{id}', [RepairController::class, 'showProductRepairDetails'])->name('viewProductRepair'); //Muestra el detalle del producto a reparar seleccionado
+    Route::get('createRepair', [RepairController::class, 'showCreateForm'])->name('createRepair'); //Muestra el formulario de registro para una nueva reparación
+    Route::post('create', [RepairController::class, 'create'])->name('registerRepair'); //Ingresa un nuevo registro de reparación en la BD
+    Route::get('createProductRepair', [RepairController::class, 'showCreateProductRepairForm'])->name('createProductRepair'); //Muestra el formulario de registro para iniciar una reparación a un producto
+    Route::post('registerProductRepair', [RepairController::class, 'createProductRepair'])->name('registerProductRepair'); //Ingresa un nuevo registro de trabajo de reparación en la BD
+    Route::get('editRepair/{id}', [RepairController::class, 'showEditForm'])->name('editRepair'); //Muestra el formulario de edición para la reparación seleccionada
+    Route::put('updateRepair/{id}', [RepairController::class, 'updateRepair'])->name('updateRepair'); //Actualiza el registro de la reparación seleccionada
+    Route::get('editProductRepair/{id}', [RepairController::class, 'showEditProductRepairForm'])->name('editProductRepair'); //Muestra el formulario de edición para el trabajo de reparación del producto seleccionado
+    Route::put('updateProductRepair/{id}', [RepairController::class, 'updateProductRepair'])->name('updateProductRepair'); //Actualiza el registro del trabajo de reparación para el producto seleccionado
+    Route::get('deleteRepairOrder/{id}', [RepairController::class, 'deleteRepairOrder'])->name('deleteRepairOrder'); //Elimina el registro de reparación seleccionada
+    Route::get('deleteProductRepairOrder/{id}', [RepairController::class, 'deleteProductRepairOrder'])->name('deleteProductRepairOrder'); //Elimina el trabajo de reparación para el producto seleccionado
 });
 
+//Rutas para el módulo de control de calidad
 Route::prefix('qualityControl')->name('qualityControl.')->group(function () {
-    Route::get('listQA', [QualityControlController::class, 'listQAOrders'])->name('listQA');
-    Route::get('registerQA', [QualityControlController::class, 'showRegistrationForm'])->name('registerQA');
-    Route::get('getProducts/{id}', [QualityControlController::class, 'getProducts'])->name('getProducts');
-    Route::get('viewQA/{id}', [QualityControlController::class, 'showQualityControl'])->name('viewQA');
-    Route::post('register', [QualityControlController::class, 'create'])->name('register');
-    Route::get('editIQA/{id}', [QualityControlController::class, 'showEditForm'])->name('editQA');
-    Route::put('updateQA/{id}', [QualityControlController::class, 'updateQualityControl'])->name('updateQA');
-    Route::get('deleteQA/{id}', [QualityControlController::class, 'delete'])->name('deleteQualityControl');
+    Route::get('listQA', [QualityControlController::class, 'listQAOrders'])->name('listQA'); //Muestra un listado de los controles de calidad
+    Route::get('registerQA', [QualityControlController::class, 'showRegistrationForm'])->name('registerQA'); // Muestra el formulario de registro para un nuevo control de calidad
+    Route::get('getProducts/{id}', [QualityControlController::class, 'getProducts'])->name('getProducts'); //Obtienen los productos con órdenes de facturación asociados
+    Route::get('viewQA/{id}', [QualityControlController::class, 'showQualityControl'])->name('viewQA'); //Muestra el detalle del control de calidad seleccionado
+    Route::post('register', [QualityControlController::class, 'create'])->name('register'); //Ingresa un nuevo registro de control de calidad en la BD
+    Route::get('editIQA/{id}', [QualityControlController::class, 'showEditForm'])->name('editQA'); //Muestra el formulario de edición para el control de calidad seleccionado
+    Route::put('updateQA/{id}', [QualityControlController::class, 'updateQualityControl'])->name('updateQA'); //Actualiza el registro del control de calidad seleccionado en la BD
+    Route::get('deleteQA/{id}', [QualityControlController::class, 'delete'])->name('deleteQualityControl'); //Elimina el control de calidad seleccionado de la BD
 });
 
+//Muestra el dashboard
 Route::get('dashboard', function () {
     return view('home/home');
 })->name('dashboard')->middleware('auth');
 
+//Muestra las categorías  de servicios técnios
 Route::get('home/technicalServices', function () {
     return view('home/technicalServices');
 })->name('home.technicalServices');
 
+//Muestra las categorías de facturación
 Route::get('home/billingServices', function () {
     return view('home/billingServices');
 })->name('home.billingServices');
 
+//Muestra las categorías de inventario
 Route::get('home/stockServices', function () {
     return view('home/stockServices');
 })->name('home.stockServices');
 
+//Muestra las categorias de administración
 Route::get('home/adminServices', function () {
     return view('home/adminServices');
 })->name('home.adminServices');
 
+//Muestra la vista de reportes
 Route::get('reports/graphics', function () {
     return view('reports/graphics');
 })->name('reports.graphics');

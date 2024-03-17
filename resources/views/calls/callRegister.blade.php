@@ -188,7 +188,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="callComments">Consulta Realizada</label>
+                            <label for="callComments">Consulta Realizada*</label>
                             <textarea id="callComments" type="text" class="form-control" name="callComments" placeholder="Comentarios de la llamada..."></textarea>
                             <span class="invalid-feedback" id="callComments-error">Debes ingresar una observación o comentario.</span>
                         </div>
@@ -218,8 +218,8 @@
     </script>
 @endif
 @section('clientModalContent')
-<div class="table-responsive border-bottom">
-    <div class="table-responsive border-bottom">
+<div class="table-responsive">
+    <div class="table-responsive">
         <table id="customerTable" class="table mb-0 thead-border-top-0 table-striped table-hover">
             <thead>
                 <tr>
@@ -240,16 +240,16 @@
                     </th>
                 </tr>
             </thead>
-            <tbody class="list" id="staff">
+            <tbody class="list">
                 @foreach($customers as $customer)
                 <tr data-customer-email2="{{$customer -> customerEmail2}}" data-customer-phone2="{{$customer -> customerPhone2}}" 
                     data-customer-typeid="{{$customer -> customertypeID}}" data-customer-id="{{$customer -> idCustomer}}"
                     data-customer-taxes="{{$customer -> customerTaxes}}" data-customer-address2="{{$customer -> customerAddress2}}"
                     data-customer-address1="{{$customer -> customerAddress1}}">
-                        <td class="text-center">{{$customer -> customerID}}</td>
-                        <td class="text-center">{{$customer -> customerFullName}}</td>
-                        <td class="text-center">{{$customer -> customerContact}}</td>
-                        <td class="text-center" style="width: 14px;">{{$customer -> customerEmail1}}</td>
+                        <td class="text-center" style="width: 52px;">{{$customer -> customerID}}</td>
+                        <td class="text-center" style="width: 150px;">{{$customer -> customerFullName}}</td>
+                        <td class="text-center" style="width: 150px;">{{$customer -> customerContact}}</td>
+                        <td class="text-center">{{$customer -> customerEmail1}}</td>
                         <td class="text-center">{{$customer -> customerPhone1}}</td>
                     </tr>
                 @endforeach
@@ -388,6 +388,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="registerClientButton" type="submit" class="btn btn-success ml-3">Registrar</a>
+                </div>
             </div>
         </div>
     </div>
@@ -408,7 +412,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomertypeID">Tipo de Cedula*</label>
-                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select" required>
+                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select">
                                 <option value="1">Jurídica</option>
                                 <option value="2">Física</option>
                             </select>
@@ -417,7 +421,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerID">Cédula*</label>
-                            <input id="modifyCustomerID" type="text" class="form-control" name="modifyCustomerID" placeholder="0-000-000000" required>
+                            <input id="modifyCustomerID" type="text" class="form-control" name="modifyCustomerID" placeholder="0-000-000000">
                             <span class="invalid-feedback" id="modifyCustomerID-error">Ingresa la cédula en un formato válido (e.g., 1-2345-6789)</span>
                             <span class="invalid-feedback" id="modifyCustomerLegalID-error">Ingresa la cédula en un formato válido (e.g., 1-234-567890)</span>
                         </div>
@@ -436,14 +440,14 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerFullName">Nombre/Razón Social*</label>
-                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo" required>
+                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo">
                             <span class="invalid-feedback" id="modifyCustomerFullName-error">Ingresa un nombre válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerContact">Contacto*</label>
-                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto" required>
+                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto">
                             <span class="invalid-feedback" id="modifyCustomerContact-error">Ingresa un contacto válido.</span>
                         </div>
                     </div>
@@ -452,7 +456,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerEmail1">Correo Electrónico 1*</label>
-                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com" required>
+                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com" >
                             <span class="invalid-feedback" id="modifyCustomerEmail1-error">Ingresa un correo electrónico válido.</span>
                         </div>
                     </div>

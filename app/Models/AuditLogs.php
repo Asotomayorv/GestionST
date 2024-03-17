@@ -9,9 +9,9 @@ class AuditLogs extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table = 'auditLogs';    // Tabla errorLogs en la base de datos
+    protected $table = 'auditLogs';  // Tabla auditLogs en la base de datos
     protected $primaryKey = 'idLog'; // Llave primaria
-
+    //Campos de la tabla
     protected $fillable = [
         'idLog',
         'idUser',
@@ -20,11 +20,12 @@ class AuditLogs extends Model
         'dateCreation',
     ];
 
-    // Relación con la tabla Customers
+    // Relación con la tabla Users
     public function users(){
         return $this->belongsTo(User::class, 'idUser');
     }
 
+    //Función para insertar logs a la tabla
     public static function logActivity($userId, $action, $event)
     {
         self::create([

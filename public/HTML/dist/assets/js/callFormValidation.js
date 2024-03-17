@@ -659,7 +659,7 @@ $(document).ready(function() {
     $('#modifyClientButton').off('click').on('click', function() {
         // Verifica si hay un cliente seleccionado
         if (!selectedCustomerData) {
-            toastr.error('Por favor, seleccione un cliente.');
+            toastr.warning('Por favor, seleccione un cliente.');
         } else {
             // Completa el formulario del modal con los datos del cliente
             $('#modifyClientModal').modal('show');

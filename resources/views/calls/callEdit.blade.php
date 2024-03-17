@@ -178,7 +178,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="callComments">Consulta Realizada</label>
+                            <label for="callComments">Consulta Realizada*</label>
                             <textarea id="callComments" type="text" class="form-control" name="callComments" placeholder="Comentarios de la llamada...">{{$call -> callComments}}</textarea>
                             <span class="invalid-feedback" id="callComments-error">Debes ingresar una observación o comentario.</span>
                         </div>
@@ -247,7 +247,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomertypeID">Tipo de Cedula*</label>
-                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select" required>
+                            <select id="modifyCustomertypeID" name="modifyCustomertypeID" class="custom-select">
                                 <option value="1">Jurídica</option>
                                 <option value="2">Física</option>
                             </select>
@@ -275,14 +275,14 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerFullName">Nombre/Razón Social*</label>
-                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo" required>
+                            <input id="modifyCustomerFullName" type="text" class="form-control" name="modifyCustomerFullName" placeholder="Nombre Completo">
                             <span class="invalid-feedback" id="modifyCustomerFullName-error">Ingresa un nombre válido.</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerContact">Contacto*</label>
-                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto" required>
+                            <input id="modifyCustomerContact" type="text" class="form-control" name="modifyCustomerContact" placeholder="Contacto">
                             <span class="invalid-feedback" id="modifyCustomerContact-error">Ingresa un contacto válido.</span>
                         </div>
                     </div>
@@ -291,7 +291,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="modifyCustomerEmail1">Correo Electrónico 1*</label>
-                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com" required>
+                            <input id="modifyCustomerEmail1" type="email" class="form-control" name="modifyCustomerEmail1" placeholder="nombre@correo.com">
                             <span class="invalid-feedback" id="modifyCustomerEmail1-error">Ingresa un correo electrónico válido.</span>
                         </div>
                     </div>
@@ -305,7 +305,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="modifyCustomerPhone1">Telefono 1*</label>
-                            <input id="modifyCustomerPhone1" type="text" class="form-control" name="modifyCustomerPhone1" placeholder="0000-0000" required>
+                            <input id="modifyCustomerPhone1" type="text" class="form-control" name="modifyCustomerPhone1" placeholder="0000-0000" >
                             <span class="invalid-feedback" id="modifyCustomerPhone1-error">Ingresa un teléfono en formato válido (e.g., 8888-8888).</span>
                         </div>
                     </div>
@@ -354,6 +354,10 @@
                             <span class="invalid-feedback" id="commentCall-error">Debes ingresar una observación.</span>
                         </div>
                     </div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="registerCommentButton" class="btn btn-success ml-3">Registrar Comentario</a>
                 </div>
             </div>
         </div>

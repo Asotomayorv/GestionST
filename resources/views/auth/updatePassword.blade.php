@@ -24,17 +24,17 @@
             </div>
             <div class="col-lg-8 card-form__body card-body">
                 <div class="form-group">
-                    <label for="currentPassword">Contraseña Actual</label>
+                    <label for="currentPassword">Contraseña Actual*</label>
                     <input style="width: 270px;" id="password" name="password" type="password" class="form-control" placeholder="Contraseña Actual">
                     <span class="invalid-feedback" id="userPassword-error">Ingresa tu contraseña actual para continuar.</span>
                 </div>
                 <div class="form-group">
-                    <label for="newPassword">Nueva Contraseña </label>
+                    <label for="newPassword">Nueva Contraseña*</label>
                     <input style="width: 270px;" id="newPassword" name="newPassword" type="password" class="form-control" placeholder="Nueva Contraseña">
                     <span class="invalid-feedback" id="newPassword-error">La nueva contraseña no debe estar vacía o no cumple con los requerimientos especificados.</span>
                 </div>
                 <div class="form-group">
-                    <label for="newPassword_confirmation">Confirmar Nueva Contraseña</label>
+                    <label for="newPassword_confirmation">Confirmar Nueva Contraseña*</label>
                     <input style="width: 270px;" id="newPassword_confirmation" name="newPassword_confirmation" type="password" class="form-control" placeholder="Confirmar Nueva Contraseña">
                     <span class="invalid-feedback" id="newPassword_confirmation-error">La confirmación de la contraseña no coincide.</span>
                 </div>

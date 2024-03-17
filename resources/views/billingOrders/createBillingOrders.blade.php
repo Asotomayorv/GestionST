@@ -264,9 +264,9 @@
                     data-customer-typeid="{{$customer -> customertypeID}}" data-customer-id="{{$customer -> idCustomer}}"
                     data-customer-taxes="{{$customer -> customerTaxes}}" data-customer-address2="{{$customer -> customerAddress2}}"
                     data-customer-address1="{{$customer -> customerAddress1}}">
-                        <td class="text-center">{{$customer -> customerID}}</td>
-                        <td class="text-center">{{$customer -> customerFullName}}</td>
-                        <td class="text-center">{{$customer -> customerContact}}</td>
+                        <td class="text-center" style="width: 52px;">{{$customer -> customerID}}</td>
+                        <td class="text-center" style="width: 150px;">{{$customer -> customerFullName}}</td>
+                        <td class="text-center" style="width: 150px;">{{$customer -> customerContact}}</td>
                         <td class="text-center">{{$customer -> customerEmail1}}</td>
                         <td class="text-center">{{$customer -> customerPhone1}}</td>
                     </tr>
@@ -377,6 +377,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="registerClientButton" type="submit" class="btn btn-success ml-3">Registrar</a>
+                </div>
             </div>
         </div>
     </div>
@@ -404,7 +408,7 @@
             @foreach($products as $product)
             <tr data-product-id="{{$product -> idproduct}}">
                 <td class="text-center">{{$product -> productCode}}</td>
-                <td class="text-center">{{$product -> productName}}</td>
+                <td class="text-center" style="width: 111px;">{{$product -> productName}}</td>
                 <td class="text-center">{{$product -> brands -> brandName}}</td>
                 <td class="text-center">{{$product -> models -> modelName}}</td>
                 <td class="text-center">{{$product -> productSeries}}</td>

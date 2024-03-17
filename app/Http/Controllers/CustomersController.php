@@ -9,8 +9,10 @@ use App\Models\Customers;
 use App\Models\ErrorLogs;
 use App\Models\AuditLogs;
 use App\Models\Call;
-use App\Models\VisitRoutes;
 use App\Models\billingOrders;
+use App\Models\InstallOrders;
+use App\Models\Repairs;
+use App\Models\TechService;
 use Illuminate\Support\Facades\Validator;
 use Exception;
 use Illuminate\Support\Carbon;
@@ -53,12 +55,19 @@ class CustomersController extends Controller
         // Obtener las llamadas realizadas por el cliente
         $calls = Call::where('idCustomer', $id)->get();
         // Obtener las rutas agendadas del cliente 
-        $routes = VisitRoutes::where('idCustomer', $id)->get();
+        $installOrders = InstallOrders::whereHas('routes', function ($query) use ($id) {
+            $query->where('idCustomer', $id);
+        })->get();
+        //Obtener las reparaciones
+        $repairs = Repairs::where('idCustomer', $id)->get();
         // Obtener las rutas agendadas del cliente 
         $billingOrders = billingOrders::where('idCustomer', $id)->get();
-        //Mostrar los datos del usuario
-        return view('customers.viewCustomer', ['customer' => $customer, 'calls' => $calls, 'routes' => $routes,
-        'billingOrders' => $billingOrders]);
+        //Mostrar los servicios técnicos
+        $techServices = TechService::whereHas('routes', function ($query) use ($id) {
+            $query->where('idCustomer', $id);
+        })->get();
+        return view('customers.viewCustomer', ['customer' => $customer, 'calls' => $calls, 'installOrders' => $installOrders,
+        'billingOrders' => $billingOrders, 'repairs' => $repairs, 'techServices' => $techServices]);
     }
 
     /*public function listCustomersModal()

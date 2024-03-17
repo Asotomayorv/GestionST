@@ -82,7 +82,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="supplierAddress">Dirección</label>
+                            <label for="supplierAddress">Dirección*</label>
                             <textarea id="supplierAddress" type="text" class="form-control" name="supplierAddress" placeholder="Direccion del proveedor.."></textarea>
                             <span class="invalid-feedback" id="supplierAddress-error">Ingresa una direccion válida.</span>
                         </div>

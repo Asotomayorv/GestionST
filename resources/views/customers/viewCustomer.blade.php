@@ -1,14 +1,17 @@
 @extends('layout.fluidNavbar')
 @section('viewCustomer')
 <div class="mdk-header-layout__content page">   
-    <div class="page__heading">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Gestión de Clientes</li>
-            </ol>
-        </nav>
-        <h1 class="m-0">Detalles del Cliente</h1>
+    <div class="page__heading d-flex align-items-center">
+        <div class="flex">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}"><i class="material-icons icon-20pt">home</i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Gestión de Clientes</li>
+                </ol>
+            </nav>
+            <h1 class="m-0">Detalles del Cliente</h1>
+        </div>
+        <a href="{{route('customers.listCustomers')}}" class="btn btn-primary ml-6"><i class="material-icons">arrow_back</i> Regresar</a>
     </div>
 </div>
 <div class="card card-group-row__card pricing__card">
@@ -128,8 +131,10 @@
             </div>
             <div class="card-header card-header-tabs-basic nav" role="tablist">
                 <a href="#registered_calls" class="active" data-toggle="tab" role="tab" aria-controls="registered_calls" aria-selected="true">Llamadas Registradas</a>
-                <a href="#scheduled_routes" data-toggle="tab" role="tab" aria-selected="false">Rutas Agendadas</a>
-                <a href="#billing_orders" data-toggle="tab" role="tab" aria-selected="false">Facturación</a>
+                <a href="#billing_orders" data-toggle="tab" role="tab" aria-selected="false">Órdenes de Facturación</a>
+                <a href="#install_orders" data-toggle="tab" role="tab" aria-selected="false">Instalaciones</a>
+                <a href="#repairs" data-toggle="tab" role="tab" aria-selected="false">Reparaciones</a>
+                <a href="#technical_Services" data-toggle="tab" role="tab" aria-selected="false">Servicios Técnicos</a>
                 <!-- <a href="#install_orders" data-toggle="tab" role="tab" aria-selected="false">Instalaciones</a>
                 <a href="#repair_orders" data-toggle="tab" role="tab" aria-selected="false">Reparaciones</a>
                 <a href="#technical_services" data-toggle="tab" role="tab" aria-selected="false">Servicios Técnicos</a> -->
@@ -178,23 +183,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane show fade" id="scheduled_routes">
+                <div class="tab-pane show fade" id="install_orders">
                     <div class="row">
                         <div class="col-md-12">
                                 <table class="table table-striped border-bottom mb-0">
                                     <thead>
                                         <tr>
                                             <th class="text-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><span>No.Instalación</span>
+                                            </th>
+                                            <th class="text-center">
                                                 <i class="material-icons icon-16pt mr-1">today</i><span>Fecha</span>
                                             </th>
                                             <th class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Técnico que atiendió<span>
-                                            </th>
-                                             <th class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Tipo de Visita<span>
-                                            </th>
-                                            <th  class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">work</i><span>Prioridad<span>
+                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Técnico(a)<span>
                                             </th>
                                             <th  class="text-center">
                                                 <i class="material-icons icon-16pt text-muted mr-1">find_replace</i><span>Estado<span>
@@ -202,18 +204,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($routes as $route)
+                                    @foreach($installOrders as $installOrder)
                                     <tr>
                                         <td class="text-center">
-                                            <a href="{{route('routes.listRoutes')}}" class="text-15pt align-items-center"><i class="material-icons icon-16pt mr-1">map
-                                                    </i> <strong>{{$route -> dateCreation}}</strong></a>
+                                            <a href="{{route('installorders.viewInstallOrder', ['id' => $installOrder -> idinstallation])}}" class="text-15pt align-items-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><strong>{{$installOrder -> idinstallation}}</strong></a>
                                         </td>
-                                        <td class="text-center">{{$route -> routeTechnicianAssigned}}</td>
-                                        <td class="text-center">{{$route -> routeType}}</td>
-                                        <td class="text-center"><strong>{{$route -> routePriority}}</strong></td>
+                                        <td class="text-center">{{$installOrder -> installationDate}}</td>
+                                        <td class="text-center">{{$installOrder -> routes -> routeTechnicianAssigned}}</td>
                                         <td class="text-center">
-                                            <div class="badge badge-success">{{$route -> routeStatus}}</div>
-                                        </td> 
+                                            @if($installOrder -> installationStatus == 0)
+                                                <div class="badge badge-warning">PENDIENTE</div>
+                                            @elseif($installOrder -> installationStatus == 1)
+                                                <div class="badge badge-success">FINALIZADO</div>
+                                            @else
+                                                <div class="badge badge-danger">Estado Desconocido</div>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -262,42 +269,101 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane show fade" id="scheduled_routes">
+                <div class="tab-pane show fade" id="repairs">
                     <div class="row">
                         <div class="col-md-12">
                                 <table class="table table-striped border-bottom mb-0">
                                     <thead>
                                         <tr>
                                             <th class="text-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><span>No.Reparación</span>
+                                            </th>
+                                            <th class="text-center">
                                                 <i class="material-icons icon-16pt mr-1">today</i><span>Fecha</span>
                                             </th>
                                             <th class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Técnico que atiendió<span>
-                                            </th>
-                                             <th class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Tipo de Visita<span>
+                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Técnico(a)<span>
                                             </th>
                                             <th  class="text-center">
-                                                <i class="material-icons icon-16pt text-muted mr-1">work</i><span>Prioridad<span>
-                                            </th>
+                                                <i class="material-icons icon-16pt text-muted mr-1">exit_to_app</i><span>Procedencia<span>
+                                            </th> 
+                                            <th  class="text-center">
+                                                <i class="material-icons icon-16pt text-muted mr-1">build</i><span>Tipo de Reparación<span>
+                                            </th> 
                                             <th  class="text-center">
                                                 <i class="material-icons icon-16pt text-muted mr-1">find_replace</i><span>Estado<span>
                                             </th> 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($routes as $route)
+                                    @foreach($repairs as $repair)
                                     <tr>
                                         <td class="text-center">
-                                            <a href="{{route('routes.listRoutes')}}" class="text-15pt align-items-center"><i class="material-icons icon-16pt mr-1">map
-                                                    </i> <strong>{{$route -> dateCreation}}</strong></a>
+                                            <a href="{{route('repairs.viewRepair', ['id' => $repair -> idrepair])}}" class="text-15pt align-items-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><strong>{{$repair -> idrepair}}</strong></a>
                                         </td>
-                                        <td class="text-center">{{$route -> routeTechnicianAssigned}}</td>
-                                        <td class="text-center">{{$route -> routeType}}</td>
-                                        <td class="text-center"><strong>{{$route -> routePriority}}</strong></td>
+                                        <td class="text-center">{{$repair -> receivingDate}}</td>
+                                        <td class="text-center">{{$repair -> technicianAssigned}}</td>
+                                        <td class="text-center">{{$repair -> repairOrigin}}</td>
+                                        <td class="text-center">{{$repair -> repairType}}</td>
                                         <td class="text-center">
-                                            <div class="badge badge-success">{{$route -> routeStatus}}</div>
-                                        </td> 
+                                            @if($repair -> repairStatus == 0)
+                                                <div class="badge badge-warning">PENDIENTE</div>
+                                            @elseif($repair -> repairStatus == 1)
+                                                <div class="badge badge-primary">EN PROGRESO</div>
+                                            @else
+                                                <div class="badge badge-success">REPARADO</div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane show fade" id="technical_Services">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <table class="table table-striped border-bottom mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><span>No.Solicitud</span>
+                                            </th>
+                                            <th class="text-center">
+                                                <i class="material-icons icon-16pt mr-1">today</i><span>Fecha</span>
+                                            </th>
+                                            <th class="text-center">
+                                                <i class="material-icons icon-16pt text-muted mr-1">account_circle</i><span>Técnico(a)<span>
+                                            </th>
+                                            <th  class="text-center">
+                                                <i class="material-icons icon-16pt text-muted mr-1">map</i><span>Tipo de Visita<span>
+                                            </th> 
+                                            <th  class="text-center">
+                                                <i class="material-icons icon-16pt text-muted mr-1">find_replace</i><span>Estado<span>
+                                            </th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($techServices as $techService)
+                                    <tr>
+                                        <td class="text-center">
+                                            <a href="{{route('technicalservices.viewTechnicalService', ['id' => $techService -> idtechnicalServiceOrder])}}" class="text-15pt align-items-center">
+                                                <i class="material-icons icon-16pt mr-1">receipt</i><strong>{{$techService -> idtechnicalServiceOrder}}</strong></a>
+                                        </td>
+                                        <td class="text-center">{{$techService -> technicalServiceDate}}</td>
+                                        <td class="text-center">{{$techService -> routes -> routeTechnicianAssigned}}</td>
+                                        <td class="text-center">{{$techService -> routes -> routeType}}</td>
+                                        <td class="text-center">
+                                            @if($techService -> technicalServiceStatus == 0)
+                                                <div class="badge badge-warning">PENDIENTE</div>
+                                            @elseif($techService -> technicalServiceStatus == 1)
+                                                <div class="badge badge-success">FINALIZADO</div>
+                                            @else
+                                                <div class="badge badge-danger">Estado Desconocido</div>
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                     </tbody>

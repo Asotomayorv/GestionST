@@ -24,10 +24,11 @@ class ProductController extends Controller
     
     public function getSuppliers()
     {
-        //Obtiene todos los roles desde la base de datos
-        $suppliers = DB::table('suppliers') -> get();
+        //Obtiene solo los proveedores activos desde la base de datos
+        $suppliers = DB::table('suppliers')->where('isSupplierActive', 1)->get();
         return $suppliers;
     }
+
 
     public function getModels($id)
     {

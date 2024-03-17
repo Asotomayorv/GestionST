@@ -650,10 +650,10 @@
                 <div class="modal-body">
                     @yield('createClientModal')
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     <button id="registerClientButton" class="btn btn-success">Registrar</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>  
@@ -692,10 +692,10 @@
                 <div class="modal-body">
                     @yield('createCommentModal')
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     <button id="registerCommentButton" class="btn btn-success">Registrar Comentario</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>  

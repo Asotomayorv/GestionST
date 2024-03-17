@@ -132,13 +132,13 @@
                     <div class="col">
                         <div class="form-group">
                             <input id="idCustomer" name="idCustomer" type="hidden" value="">
-                            <label for="createCustomerFullName">Nombre/Razón Social*</label>
+                            <label for="createCustomerFullName">Nombre/Razón Social</label>
                             <input id="createCustomerFullName" type="text" class="form-control" name="createCustomerFullName" placeholder="Nombre Completo" readonly>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="createCustomerContact">Contacto*</label>
+                            <label for="createCustomerContact">Contacto</label>
                             <input id="createCustomerContact" type="text" class="form-control" name="createCustomerContact" placeholder="Contacto" readonly>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="routeAddress">Dirección</label>
+                            <label for="routeAddress">Dirección*</label>
                             <textarea id="routeAddress" type="text" class="form-control" name="routeAddress" placeholder="Dirección Completa.."></textarea>
                             <span class="invalid-feedback" id="routeAddress-error">Ingresa una dirección válida.</span>
                         </div>
@@ -267,13 +267,13 @@
                     </div> -->
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="startDate">Fecha Inicio</label>
+                            <label class="text-label" for="startDate">Fecha Inicio*</label>
                             <input id="startDate" name="startDate" type="date" class="form-control" >
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="startTime">Hora Inicio</label>
+                            <label class="text-label" for="startTime">Hora Inicio*</label>
                             <input id="startTime" name="startTime" type="time" class="form-control">
                         </div>
                     </div>
@@ -287,13 +287,13 @@
                     </div> -->
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="endDate">Fecha Finalización</label>
+                            <label class="text-label" for="endDate">Fecha Finalización*</label>
                             <input id="endDate" name="endDate" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="endTime">Hora Finalización</label>
+                            <label class="text-label" for="endTime">Hora Finalización*</label>
                             <input id="endTime" name="endTime" type="time" class="form-control">
                         </div>
                     </div>
@@ -371,7 +371,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="modifyDistric">Distrito</label><br>
+                            <label for="modifyDistric">Distrito*</label><br>
                             <select id="modifyDistric" name="modifyDistric" class="custom-select">
                             </select>
                         </div>
@@ -380,7 +380,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="modifyRouteAddress"> Direccion</label>
+                            <label for="modifyRouteAddress"> Direccion*</label>
                             <textarea id="modifyRouteAddress" type="text" class="form-control" name="modifyRouteAddress" placeholder="Dirección Completa.."></textarea>
                             <span class="invalid-feedback" id="modifyRouteAddress-error">Ingresa una dirección.</span>
                         </div>
@@ -474,13 +474,13 @@
                     </div> -->
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="startDate">Fecha Inicio</label>
+                            <label class="text-label" for="startDate">Fecha Inicio*</label>
                             <input id="startDate" name="startDate" type="date" class="form-control" >
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="startTime">Hora Inicio</label>
+                            <label class="text-label" for="startTime">Hora Inicio*</label>
                             <input id="startTime" name="startTime" type="time" class="form-control">
                         </div>
                     </div>
@@ -494,13 +494,13 @@
                     </div> -->
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="endDate">Fecha Finalización</label>
+                            <label class="text-label" for="endDate">Fecha Finalización*</label>
                             <input id="endDate" name="endDate" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="text-label" for="endTime">Hora Finalización</label>
+                            <label class="text-label" for="endTime">Hora Finalización*</label>
                             <input id="endTime" name="endTime" type="time" class="form-control">
                         </div>
                     </div>
